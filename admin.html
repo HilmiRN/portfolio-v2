@@ -54,6 +54,7 @@ body{@apply bg-ink text-paper font-body antialiased}
 <script src="config.js"></script>
 <script>
 const $=s=>document.querySelector(s),sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const BC = typeof BroadcastChannel!=='undefined' ? new BroadcastChannel('portfolio-content') : null;
 const get=(o,p)=>p.split('.').reduce((a,k)=>a?.[k],o),set=(o,p,v)=>{const k=p.split('.'),l=k.pop();k.reduce((a,x)=>a[x]??={},o)[l]=v};
 const msg=(t,bad)=>{$('#msg').textContent=t;$('#msg').className='font-mono text-xs mt-2 '+(bad?'text-red-400':'text-mist')};
 // What can be edited. [path, label, kind]  kind: area | img | num | (text)
@@ -96,7 +97,7 @@ function render(){const T=TABS[tab],b=$('#body');b.innerHTML='';$('#ttl').textCo
  data[T.key].forEach((o,i)=>b.append(card(o,T,()=>{if(confirm('Delete this item?')){data[T.key].splice(i,1);render()}})));
  const a=document.createElement('button');a.className='btn2 border-dashed justify-self-start';a.textContent='+ Add';a.onclick=()=>{data[T.key].push(structuredClone(T.blank));render()};b.append(a)}
 $('#tabs').onclick=e=>{const t=e.target.closest('[data-t]');if(t){tab=t.dataset.t;msg('');render()}};
-$('#save').onclick=async()=>{$('#save').disabled=true;msg('Saving…');const {error}=await sb.from('content').upsert({id:1,data});$('#save').disabled=false;error?msg(error.message,1):msg('Saved. The public site is updated.')};
+$('#save').onclick=async()=>{$('#save').disabled=true;msg('Saving…');const {error}=await sb.from('content').upsert({id:1,data});$('#save').disabled=false;if(error){msg(error.message,1)}else{msg('Saved. The public site is updated.');try{BC?.postMessage({type:'updated'})}catch(e){}}};
 async function start(){const {data:r}=await sb.from('content').select('data').eq('id',1).maybeSingle();data=r?.data?{...structuredClone(DEFAULT),...r.data}:structuredClone(DEFAULT);
  $('#login').style.display='none';$('#app').style.display='grid';render()}
 $('#lf').onsubmit=async e=>{e.preventDefault();$('#err').textContent='';const {error}=await sb.auth.signInWithPassword({email:$('#em').value,password:$('#pw').value});error?$('#err').textContent='Wrong email or password.':start()};

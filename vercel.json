@@ -1,0 +1,8 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/adminportfolio", "destination": "/admin.html" },
+    { "source": "/adminportfolio/", "destination": "/admin.html" }
+  ]
+}
