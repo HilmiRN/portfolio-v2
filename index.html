@@ -1,431 +1,1823 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hilmi Romzi Nagib — Aspiring Web Developer</title>
-<meta name="description" content="Portfolio of an aspiring web developer exploring creativity, technology and digital experiences.">
-<meta property="og:title" content="Hilmi Romzi Nagib — Quietly building. Constantly evolving.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.4"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style type="text/tailwindcss">
-@theme{--color-ink:#0A0E17;--color-navy:#10182A;--color-raised:#152238;--color-panel:#0D1320;--color-paper:#F4F6FA;--color-mist:#8B94A8;--color-body:#A3ACBE;--color-dim:#6B7280;--color-electric:#3B82F6;--color-light:#60A5FA;--color-edge:rgba(255,255,255,0.08);
---font-head:'Space Grotesk',system-ui,sans-serif;--font-body:'Inter',system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,monospace}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{@apply bg-ink text-paper font-body antialiased overflow-x-hidden}
-h1,h2,h3{@apply font-head font-medium tracking-tighter leading-none}
-.mono{@apply font-mono text-xs text-mist}
-.wrap{@apply mx-auto max-w-[1240px] px-6 md:px-16}
-.sec{@apply py-24 md:py-40 relative border-t border-edge}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hilmi Romzi Nagib — Aspiring Web Developer</title>
+    <meta
+      name="description"
+      content="Portfolio of an aspiring web developer exploring creativity, technology and digital experiences."
+    />
+    <meta
+      property="og:title"
+      content="Hilmi Romzi Nagib — Quietly building. Constantly evolving."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-ink: #0a0e17;
+        --color-navy: #10182a;
+        --color-raised: #152238;
+        --color-panel: #0d1320;
+        --color-paper: #f4f6fa;
+        --color-mist: #8b94a8;
+        --color-body: #a3acbe;
+        --color-dim: #6b7280;
+        --color-electric: #3b82f6;
+        --color-light: #60a5fa;
+        --color-edge: rgba(255, 255, 255, 0.08);
+        --font-head: "Space Grotesk", system-ui, sans-serif;
+        --font-body: "Inter", system-ui, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, monospace;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 76px;
+      }
+      body {
+        @apply bg-ink text-paper font-body antialiased overflow-x-hidden selection:bg-electric/30 selection:text-paper;
+      }
+      h1,
+      h2,
+      h3 {
+        @apply font-head font-medium tracking-tighter leading-none;
+      }
+      .mono {
+        @apply font-mono text-xs text-mist;
+      }
+      .wrap {
+        @apply mx-auto max-w-[1240px] px-6 md:px-16;
+      }
+      .sec {
+        @apply py-24 md:py-40 relative border-t border-edge;
+      }
 
-/* ---------- Custom cursor ---------- */
-@media(hover:hover) and (pointer:fine){body{cursor:none}
-.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;border-radius:9999px;pointer-events:none;z-index:9999;will-change:transform;mix-blend-mode:difference}
-.cursor-dot{width:6px;height:6px;background:#fff;transform:translate(-50%,-50%)}
-.cursor-ring{width:38px;height:38px;border:1px solid rgba(255,255,255,.5);transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,opacity .25s}
-.cursor-ring.hover{width:64px;height:64px;background:rgba(96,165,250,.15);border-color:transparent}}
-.cursor-trail{position:fixed;top:0;left:0;width:5px;height:5px;border-radius:9999px;background:rgba(96,165,250,.55);pointer-events:none;z-index:9998;will-change:transform,opacity;mix-blend-mode:screen}
+      /* ---------- Custom cursor ---------- */
+      .cursor-dot,
+      .cursor-ring {
+        display: none;
+      }
+      @media (hover: hover) and (pointer: fine) {
+        html.has-custom-cursor,
+        html.has-custom-cursor body,
+        html.has-custom-cursor a,
+        html.has-custom-cursor button,
+        html.has-custom-cursor input,
+        html.has-custom-cursor #certs,
+        html.has-custom-cursor #certs.dragging,
+        html.has-custom-cursor [data-c] {
+          cursor: none !important;
+        }
+        html.has-custom-cursor dialog[open],
+        html.has-custom-cursor dialog[open] * {
+          cursor: auto !important;
+        }
+        html.has-custom-cursor dialog[open] a,
+        html.has-custom-cursor dialog[open] button {
+          cursor: pointer !important;
+        }
+        html.has-custom-cursor .cursor-dot,
+        html.has-custom-cursor .cursor-ring {
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
+          border-radius: 9999px;
+          pointer-events: none;
+          z-index: 2147483647;
+          will-change: transform, opacity;
+          opacity: 0;
+        }
+        html.has-custom-cursor .cursor-dot {
+          width: 7px;
+          height: 7px;
+          background: #ffffff;
+          box-shadow: 0 0 0 1.5px rgba(10, 14, 23, 0.75), 0 0 10px rgba(96, 165, 250, 0.8);
+          transform: translate(-50%, -50%);
+          transition: opacity 0.2s ease, transform 0.08s ease;
+        }
+        html.has-custom-cursor .cursor-ring {
+          width: 38px;
+          height: 38px;
+          border: 1.5px solid rgba(255, 255, 255, 0.65);
+          box-shadow: 0 0 0 1px rgba(10, 14, 23, 0.35);
+          transform: translate(-50%, -50%);
+          transition:
+            width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+            height 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+            background 0.25s ease,
+            border-color 0.25s ease,
+            opacity 0.2s ease;
+        }
+        html.has-custom-cursor .cursor-ring.hover {
+          width: 58px;
+          height: 58px;
+          background: rgba(96, 165, 250, 0.16);
+          border-color: rgba(96, 165, 250, 0.85);
+        }
+        html.has-custom-cursor .cursor-ring.drag {
+          width: 48px;
+          height: 48px;
+          background: rgba(59, 130, 246, 0.2);
+          border-color: #60a5fa;
+        }
+      }
+      .cursor-trail {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 5px;
+        border-radius: 9999px;
+        background: rgba(96, 165, 250, 0.6);
+        pointer-events: none;
+        z-index: 2147483646;
+        will-change: transform, opacity;
+        opacity: 0;
+      }
 
-/* ---------- Scroll progress (page) ---------- */
-#progress{position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#3B82F6,#60A5FA);z-index:60;transition:transform .1s linear}
+      /* ---------- Scroll progress (page) ---------- */
+      #progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+        transform: scaleX(0);
+        transform-origin: left;
+        background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        z-index: 60;
+        transition: transform 0.1s linear;
+      }
 
-/* ---------- Buttons ---------- */
-.btn{@apply inline-flex items-center rounded-full border border-edge px-6 py-3.5 font-head font-medium transition-all duration-300 hover:border-light hover:bg-electric/15}
-.btn-primary{@apply bg-electric border-electric text-paper hover:bg-light hover:text-ink}
-.btn-magnetic{position:relative;overflow:hidden}
-.btn-magnetic::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.25),transparent 60%);opacity:0;transition:opacity .3s}
-.btn-magnetic:hover::after{opacity:1}
+      /* ---------- Buttons ---------- */
+      .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-full border border-edge px-6 py-3.5 font-head font-medium transition-all duration-300 hover:border-light hover:bg-electric/15 disabled:opacity-35 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-light/60;
+      }
+      .btn-primary {
+        @apply bg-electric border-electric text-paper hover:bg-light hover:text-ink;
+      }
+      .btn-magnetic {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-magnetic::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at var(--mx, 50%) var(--my, 50%),
+          rgba(255, 255, 255, 0.25),
+          transparent 60%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .btn-magnetic:hover::after {
+        opacity: 1;
+      }
 
-/* ---------- Hero headline reveals ---------- */
-.k span{display:inline-block;transform:translateY(110%) rotate(8deg);transition:transform 1.1s cubic-bezier(.2,.9,.2,1)}
-.on .k span{transform:none}
+      /* ---------- Hero headline reveals ---------- */
+      .k span {
+        display: inline-block;
+        transform: translateY(110%) rotate(8deg);
+        transition: transform 1.1s cubic-bezier(0.2, 0.9, 0.2, 1);
+      }
+      .on .k span {
+        transform: none;
+      }
 
-/* ---------- Reveal on scroll ---------- */
-.rv{opacity:0;transform:translateY(40px);transition:opacity 1s,transform 1s cubic-bezier(.2,.8,.2,1)}
-.rv.in{opacity:1;transform:none}
-.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}.rv-d4{transition-delay:.32s}
+      /* ---------- Reveal on scroll ---------- */
+      .rv {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 1s,
+          transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .rv.in {
+        opacity: 1;
+        transform: none;
+      }
+      .rv-d1 {
+        transition-delay: 0.08s;
+      }
+      .rv-d2 {
+        transition-delay: 0.16s;
+      }
+      .rv-d3 {
+        transition-delay: 0.24s;
+      }
+      .rv-d4 {
+        transition-delay: 0.32s;
+      }
 
-/* ---------- Pre-loader ---------- */
-#pre{transition:transform 1.1s cubic-bezier(.77,0,.18,1),opacity .4s}#pre.done{transform:translateY(-100%);opacity:0;pointer-events:none}
+      /* ---------- Pre-loader ---------- */
+      #pre {
+        transition:
+          transform 1.1s cubic-bezier(0.77, 0, 0.18, 1),
+          opacity 0.4s;
+      }
+      #pre.done {
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+      }
 
-/* ---------- Progress bars (skills) ---------- */
-.tick{transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.2,.9,.2,1)}.in .tick{transform:scaleX(var(--p))}
+      /* ---------- Progress bars (skills) ---------- */
+      .tick {
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 1.6s cubic-bezier(0.2, 0.9, 0.2, 1);
+      }
+      .in .tick {
+        transform: scaleX(var(--p));
+      }
 
-/* ---------- Marquee ---------- */
-.mq{animation:mq 28s linear infinite}@keyframes mq{to{transform:translateX(-50%)}}
+      /* ---------- Marquee ---------- */
+      .mq {
+        animation: mq 28s linear infinite;
+      }
+      @keyframes mq {
+        to {
+          transform: translateX(-50%);
+        }
+      }
 
-/* ---------- Background ornaments ---------- */
-.grid-bg{background-image:linear-gradient(rgba(148,163,184,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.14) 1px,transparent 1px);background-size:80px 80px}
-.orb{position:absolute;border-radius:9999px;filter:blur(80px);opacity:.6;will-change:transform;pointer-events:none}
-.orb-a{width:620px;height:620px;background:radial-gradient(circle,#1e40af 0%,transparent 70%);animation:float1 18s ease-in-out infinite}
-.orb-b{width:520px;height:520px;background:radial-gradient(circle,#3B82F6 0%,transparent 70%);animation:float2 22s ease-in-out infinite}
-.orb-c{width:420px;height:420px;background:radial-gradient(circle,#60A5FA 0%,transparent 70%);animation:float1 26s ease-in-out infinite reverse}
-@keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,-40px) scale(1.1)}}
-@keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-80px,50px) scale(.95)}}
-.noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+      /* ---------- Background ornaments ---------- */
+      .grid-bg {
+        background-image:
+          linear-gradient(rgba(148, 163, 184, 0.14) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+        background-size: 80px 80px;
+      }
+      .orb {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(80px);
+        opacity: 0.6;
+        will-change: transform;
+        pointer-events: none;
+      }
+      .orb-a {
+        width: 620px;
+        height: 620px;
+        background: radial-gradient(circle, #1e40af 0%, transparent 70%);
+        animation: float1 18s ease-in-out infinite;
+      }
+      .orb-b {
+        width: 520px;
+        height: 520px;
+        background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+        animation: float2 22s ease-in-out infinite;
+      }
+      .orb-c {
+        width: 420px;
+        height: 420px;
+        background: radial-gradient(circle, #60a5fa 0%, transparent 70%);
+        animation: float1 26s ease-in-out infinite reverse;
+      }
+      @keyframes float1 {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(60px, -40px) scale(1.1);
+        }
+      }
+      @keyframes float2 {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(-80px, 50px) scale(0.95);
+        }
+      }
+      .noise {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.04;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
 
-/* ---------- Card tilt + glow ---------- */
-.tilt{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s;transform-style:preserve-3d;will-change:transform}
-.tilt:hover{box-shadow:0 30px 80px -30px rgba(59,130,246,.45)}
-.glow{position:relative;overflow:hidden}
-.glow::before{content:"";position:absolute;width:240px;height:240px;border-radius:9999px;background:radial-gradient(circle,rgba(96,165,250,.25),transparent 60%);pointer-events:none;opacity:0;transition:opacity .4s;transform:translate(-50%,-50%);left:var(--gx,50%);top:var(--gy,50%)}
-.glow:hover::before{opacity:1}
+      /* ---------- Card tilt + glow ---------- */
+      .tilt {
+        transition:
+          box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+          background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+      .tilt:hover {
+        border-color: rgba(96, 165, 250, 0.65);
+        background-color: #131d33;
+        box-shadow: 0 28px 70px -24px rgba(59, 130, 246, 0.4);
+      }
+      .glow {
+        position: relative;
+        overflow: hidden;
+      }
+      .glow::before {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        border-radius: 9999px;
+        background: radial-gradient(
+          circle,
+          rgba(96, 165, 250, 0.22),
+          transparent 60%
+        );
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s;
+        transform: translate(-50%, -50%);
+        left: var(--gx, 50%);
+        top: var(--gy, 50%);
+      }
+      .glow:hover::before {
+        opacity: 1;
+      }
 
-/* ---------- Blinking cursor ---------- */
-.blink{display:inline-block;width:9px;height:18px;background:#60A5FA;vertical-align:-3px;margin-left:2px;animation:blink 1.1s steps(2) infinite}
-@keyframes blink{50%{opacity:0}}
+      /* ---------- Blinking cursor ---------- */
+      .blink {
+        display: inline-block;
+        width: 9px;
+        height: 18px;
+        background: #60a5fa;
+        vertical-align: -3px;
+        margin-left: 2px;
+        animation: blink 1.1s steps(2) infinite;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
 
-/* ---------- Section number hover ---------- */
-.num-tag{transition:letter-spacing .3s,color .3s}
-.num-tag:hover{letter-spacing:.2em;color:#60A5FA}
+      /* ---------- Section number hover ---------- */
+      .num-tag {
+        transition:
+          letter-spacing 0.3s,
+          color 0.3s;
+      }
+      .num-tag:hover {
+        letter-spacing: 0.2em;
+        color: #60a5fa;
+      }
 
-/* ---------- Scroll indicator ---------- */
-.scroll-ind{animation:bob 2s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(8px);opacity:1}}
+      /* ---------- Scroll indicator ---------- */
+      .scroll-ind {
+        animation: bob 2s ease-in-out infinite;
+      }
+      @keyframes bob {
+        0%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.6;
+        }
+        50% {
+          transform: translateY(8px);
+          opacity: 1;
+        }
+      }
 
-/* ---------- Nav link underline ---------- */
-.nav-link{position:relative}
-.nav-link::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:#60A5FA;transition:width .35s cubic-bezier(.2,.8,.2,1)}
-.nav-link:hover::after{width:100%}
+      /* ---------- Nav link underline & active state ---------- */
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0;
+        height: 1px;
+        background: #60a5fa;
+        transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 100%;
+      }
+      .nav-link.active {
+        color: #f4f6fa;
+      }
 
-/* ---------- Heading split reveal (extra) ---------- */
-.split-char{display:inline-block;opacity:0;transform:translateY(60%) rotate(6deg);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
-.in .split-char{opacity:1;transform:none}
+      /* ---------- Certificates scrollbar ---------- */
+      #certs {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      #certs::-webkit-scrollbar {
+        display: none;
+      }
+      #certs.dragging {
+        cursor: grabbing;
+        scroll-snap-type: none;
+        user-select: none;
+      }
 
-/* ---------- Journey timeline progress ---------- */
-#tl-wrap{position:relative}
-#tl-line{position:absolute;left:7px;top:0;bottom:0;width:1px;background:rgba(255,255,255,.12)}
-#tl-fill{position:absolute;left:7px;top:0;width:1px;background:linear-gradient(180deg,#3B82F6,#60A5FA);height:0;transition:height .15s linear;box-shadow:0 0 8px rgba(96,165,250,.6)}
-.tl-dot{transition:transform .4s,box-shadow .4s,background .4s}
-.tl-item.in .tl-dot{transform:scale(1.4);box-shadow:0 0 0 5px rgba(96,165,250,.18),0 0 12px rgba(96,165,250,.6)}
-.tl-item.in .tl-dot.hollow{background:#60A5FA}
-.tl-item{opacity:.55;transition:opacity .6s}
-.tl-item.in{opacity:1}
-.tl-item.in .tl-title{animation:tlTitle .8s cubic-bezier(.2,.8,.2,1)}
-@keyframes tlTitle{from{transform:translateX(-10px);opacity:0}to{transform:none;opacity:1}}
+      /* ---------- Modal animation ---------- */
+      dialog[open] {
+        animation: dlgIn 0.3s cubic-bezier(0.2, 0.9, 0.2, 1);
+      }
+      @keyframes dlgIn {
+        from {
+          opacity: 0;
+          transform: translateY(16px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
 
-/* ---------- Hover image mask reveal ---------- */
-.img-wrap{position:relative;overflow:hidden}
-.img-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(10,14,23,.7));opacity:.5;transition:opacity .5s}
-.img-wrap:hover::after{opacity:0}
+      /* ---------- Journey timeline progress ---------- */
+      #tl-wrap {
+        position: relative;
+      }
+      #tl-line {
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.12);
+      }
+      #tl-fill {
+        position: absolute;
+        inset: 0 0 auto 0;
+        background: linear-gradient(180deg, #3b82f6, #60a5fa);
+        height: 0;
+        transition: height 0.15s linear;
+        box-shadow: 0 0 8px rgba(96, 165, 250, 0.6);
+      }
+      .tl-dot {
+        transition:
+          transform 0.4s,
+          box-shadow 0.4s,
+          background 0.4s;
+      }
+      .tl-item.in .tl-dot {
+        transform: scale(1.4);
+        box-shadow:
+          0 0 0 5px rgba(96, 165, 250, 0.18),
+          0 0 12px rgba(96, 165, 250, 0.6);
+      }
+      .tl-item.in .tl-dot.hollow {
+        background: #60a5fa;
+      }
+      .tl-item {
+        opacity: 0.55;
+        transition: opacity 0.6s;
+      }
+      .tl-item.in {
+        opacity: 1;
+      }
+      .tl-item.in .tl-title {
+        animation: tlTitle 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      @keyframes tlTitle {
+        from {
+          transform: translateX(-10px);
+          opacity: 0;
+        }
+        to {
+          transform: none;
+          opacity: 1;
+        }
+      }
 
-/* ---------- Stat counter ---------- */
-[data-count]{font-variant-numeric:tabular-nums}
+      /* ---------- Hover image mask reveal ---------- */
+      .img-wrap {
+        position: relative;
+        overflow: hidden;
+      }
+      .img-wrap::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 60%,
+          rgba(10, 14, 23, 0.7)
+        );
+        opacity: 0.5;
+        transition: opacity 0.5s;
+        pointer-events: none;
+      }
+      .img-wrap:hover::after {
+        opacity: 0;
+      }
 
-/* ---------- Image fade-in on load ---------- */
-.fade-img{opacity:0;transform:scale(1.04);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
-.fade-img.in{opacity:1;transform:none}
+      /* ---------- Stat counter ---------- */
+      [data-count] {
+        font-variant-numeric: tabular-nums;
+      }
 
-/* ---------- Realtime toast ---------- */
-#toast{position:fixed;left:50%;bottom:32px;transform:translate(-50%,140%);z-index:70;background:rgba(16,24,42,.95);backdrop-filter:blur(8px);border:1px solid rgba(96,165,250,.4);color:#F4F6FA;padding:14px 22px;border-radius:9999px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.05em;box-shadow:0 20px 60px -20px rgba(59,130,246,.6);transition:transform .55s cubic-bezier(.2,.9,.2,1),opacity .4s;opacity:0;pointer-events:none;display:flex;align-items:center;gap:10px;max-width:90vw}
-#toast.show{transform:translate(-50%,0);opacity:1}
-#toast .dot{width:8px;height:8px;border-radius:9999px;background:#60A5FA;box-shadow:0 0 12px #60A5FA;animation:pulse 1.4s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:.5;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
-#toast .spin{width:14px;height:14px;border:1.5px solid rgba(96,165,250,.3);border-top-color:#60A5FA;border-radius:9999px;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+      /* ---------- Image fade-in on load ---------- */
+      .fade-img {
+        opacity: 0;
+        transform: scale(1.04);
+        transition:
+          opacity 0.9s ease,
+          transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .fade-img.in {
+        opacity: 1;
+        transform: none;
+      }
 
-/* ---------- Section refresh highlight ---------- */
-.flash-update{animation:flashUp 1.2s ease-out}
-@keyframes flashUp{0%{box-shadow:inset 0 0 0 0 rgba(96,165,250,0)}30%{box-shadow:inset 0 0 80px 0 rgba(96,165,250,.15)}100%{box-shadow:inset 0 0 0 0 rgba(96,165,250,0)}}
+      /* ---------- Realtime toast ---------- */
+      #toast {
+        position: fixed;
+        left: 50%;
+        bottom: 32px;
+        transform: translate(-50%, 140%);
+        z-index: 70;
+        background: rgba(16, 24, 42, 0.95);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(96, 165, 250, 0.4);
+        color: #f4f6fa;
+        padding: 14px 22px;
+        border-radius: 9999px;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 12px;
+        letter-spacing: 0.05em;
+        box-shadow: 0 20px 60px -20px rgba(59, 130, 246, 0.6);
+        transition:
+          transform 0.55s cubic-bezier(0.2, 0.9, 0.2, 1),
+          opacity 0.4s;
+        opacity: 0;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 90vw;
+      }
+      #toast.show {
+        transform: translate(-50%, 0);
+        opacity: 1;
+      }
+      #toast .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 9999px;
+        background: #60a5fa;
+        box-shadow: 0 0 12px #60a5fa;
+        animation: pulse 1.4s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+      #toast .spin {
+        width: 14px;
+        height: 14px;
+        border: 1.5px solid rgba(96, 165, 250, 0.3);
+        border-top-color: #60a5fa;
+        border-radius: 9999px;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
 
-/* ---------- Reduced motion ---------- */
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.k span,.rv,.split-char{transform:none!important;opacity:1!important}#pre{display:none}.orb{animation:none}.tl-item{opacity:1!important}}
-</style>
-</head>
-<body>
+      /* ---------- Section refresh highlight ---------- */
+      .flash-update {
+        animation: flashUp 1.2s ease-out;
+      }
+      @keyframes flashUp {
+        0% {
+          box-shadow: inset 0 0 0 0 rgba(96, 165, 250, 0);
+        }
+        30% {
+          box-shadow: inset 0 0 80px 0 rgba(96, 165, 250, 0.15);
+        }
+        100% {
+          box-shadow: inset 0 0 0 0 rgba(96, 165, 250, 0);
+        }
+      }
 
-<!-- custom cursor + trail -->
-<div class="cursor-ring" aria-hidden="true"></div>
-<div class="cursor-dot" aria-hidden="true"></div>
-<div id="progress" aria-hidden="true"></div>
-<div class="noise" aria-hidden="true"></div>
-<div id="toast" role="status" aria-live="polite"><span class="dot"></span><span id="toast-msg">Updating…</span></div>
+      /* ---------- Reduced motion ---------- */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+        .k span,
+        .rv {
+          transform: none !important;
+          opacity: 1 !important;
+        }
+        #pre {
+          display: none;
+        }
+        .orb {
+          animation: none;
+        }
+        .tl-item {
+          opacity: 1 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- custom cursor + trail -->
+    <div class="cursor-ring" aria-hidden="true"></div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div id="progress" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div id="toast" role="status" aria-live="polite">
+      <span class="dot"></span>
+      <span class="spin" style="display: none"></span>
+      <span id="toast-msg">Updating…</span>
+    </div>
 
-<!-- loader -->
-<div id="pre" class="fixed inset-0 z-50 bg-ink grid place-items-center p-8" aria-hidden="true">
-  <div class="text-center"><p class="mono text-light">loading</p><p id="cnt" class="font-head text-[28vw] md:text-[14rem] leading-none">00</p><p id="nm" class="mono tracking-[.15em]"></p></div>
-  <div class="absolute bottom-10 inset-x-10"><p id="sta" class="mono text-paper mb-3"></p><div class="h-px bg-edge"><div id="bar" class="h-0.5 bg-electric origin-left scale-x-0"></div></div></div>
-</div>
-
-<header class="fixed top-0 inset-x-0 z-40 backdrop-blur-md">
-  <div class="bg-gradient-to-b from-ink via-ink/85 to-transparent">
-    <nav class="wrap flex items-center justify-between gap-4 py-4" aria-label="Main">
-      <a href="#home" id="brand" class="font-head font-medium whitespace-nowrap text-lg"></a>
-      <ul id="nv" class="hidden md:flex gap-5 font-mono text-xs"></ul>
-      <button id="lg" class="font-mono text-xs border border-edge rounded-full px-3 py-1.5 hover:border-light transition-colors" aria-label="Switch language"></button>
-    </nav>
-  </div>
-</header>
-
-<main>
-<!-- ============================ HERO ============================ -->
-<section id="home" class="min-h-svh flex flex-col justify-center pt-28 pb-16 relative overflow-hidden">
-  <div class="absolute inset-0 grid-bg opacity-50 [mask-image:radial-gradient(ellipse_at_30%_20%,#000,transparent_70%)]"></div>
-  <div class="orb orb-a" style="top:-120px;left:-120px"></div>
-  <div class="orb orb-b" style="bottom:-160px;right:-120px"></div>
-  <div class="orb orb-c" style="top:40%;left:50%"></div>
-  <div class="wrap relative" data-parallax>
-    <p class="mono flex flex-wrap gap-x-6"><span id="hn" class="text-paper"></span><span id="hr"></span><span class="text-light" data-i="beyond"></span></p>
-    <h1 class="mt-8 text-[clamp(2.5rem,7.5vw,7rem)]" aria-label="Quietly Building. Constantly Evolving.">
-      <span class="k block overflow-hidden pb-[.1em]" data-k="Quietly Building."></span>
-      <span class="k block overflow-hidden pb-[.1em] text-mist md:pl-20" data-k="Constantly Evolving."></span></h1>
-    <div class="mt-12 grid gap-8 md:grid-cols-2 items-end">
-      <p class="max-w-[36ch] text-lg md:text-xl text-body" data-i="hello"></p>
-      <div class="flex flex-wrap gap-3 md:justify-end">
-        <a href="#projects" class="btn btn-primary btn-magnetic" data-i="work"></a>
-        <a href="#contact" class="btn btn-magnetic" data-i="talk"></a>
+    <!-- loader -->
+    <div
+      id="pre"
+      class="fixed inset-0 z-50 bg-ink grid place-items-center p-8"
+      aria-hidden="true"
+    >
+      <div class="text-center">
+        <p class="mono text-light">loading</p>
+        <p id="cnt" class="font-head text-[28vw] md:text-[14rem] leading-none">
+          00
+        </p>
+        <p id="nm" class="mono tracking-[.15em]"></p>
+      </div>
+      <div class="absolute bottom-10 inset-x-10">
+        <p id="sta" class="mono text-paper mb-3"></p>
+        <div class="h-px bg-edge">
+          <div id="bar" class="h-0.5 bg-electric origin-left scale-x-0"></div>
+        </div>
       </div>
     </div>
-    <p class="mono mt-12 pt-4 border-t border-edge"><span class="text-light">~/portfolio $</span> whoami → <span id="hw"></span><span class="blink"></span></p>
-  </div>
-  <a href="#about" class="scroll-ind absolute bottom-8 right-8 mono text-xs flex items-center gap-2 text-mist hover:text-light" data-i="scroll"></a>
-</section>
 
-<!-- ============================ ABOUT ============================ -->
-<section id="about" class="sec"><div class="wrap grid md:grid-cols-12 gap-6">
-  <p class="mono text-light absolute top-8 num-tag" data-i="n1"></p>
-  <h2 class="md:col-span-9 text-[clamp(2.2rem,6vw,5rem)] rv" data-i="about_h"></h2>
-  <aside class="md:col-span-4 md:row-start-2 mt-10 border-l-2 border-electric pl-4 mono text-mist rv self-start" data-i="portrait"></aside>
-  <div class="md:col-span-7 md:col-start-6 mt-10 text-xl md:text-2xl leading-relaxed grid gap-5">
-    <p class="rv rv-d1" data-i="a1"></p><p class="rv rv-d2" data-i="a2"></p><p class="rv rv-d3" data-i="a3"></p>
-  </div>
-</div></section>
+    <header class="fixed top-0 inset-x-0 z-40 backdrop-blur-md border-b border-edge/60">
+      <div class="bg-gradient-to-b from-ink/95 via-ink/85 to-ink/60">
+        <nav
+          class="wrap flex items-center justify-between gap-4 py-4"
+          aria-label="Main"
+        >
+          <a
+            href="#home"
+            id="brand"
+            class="font-head font-medium whitespace-nowrap text-lg"
+          ></a>
+          <ul id="nv" class="hidden md:flex gap-6 font-mono text-xs"></ul>
+          <div class="flex items-center gap-2">
+            <button
+              id="lg"
+              class="font-mono text-xs border border-edge rounded-full px-3 py-1.5 hover:border-light transition-colors"
+              aria-label="Switch language"
+            ></button>
+            <button
+              id="mob-btn"
+              class="md:hidden font-mono text-xs border border-edge rounded-full px-3 py-1.5 hover:border-light transition-colors"
+              aria-label="Toggle menu"
+              aria-expanded="false"
+            >
+              menu
+            </button>
+          </div>
+        </nav>
+        <div
+          id="mob-nav"
+          class="hidden md:hidden border-t border-edge bg-ink/95 backdrop-blur-xl px-6 py-5"
+        >
+          <ul id="nv-mob" class="grid gap-3 font-mono text-sm"></ul>
+        </div>
+      </div>
+    </header>
 
-<!-- ============================ STACK ============================ -->
-<section id="stack" class="sec"><div class="wrap">
-  <p class="mono text-light absolute top-8 num-tag" data-i="n2"></p>
-  <h2 class="text-[clamp(2.2rem,6vw,5rem)] rv" data-i="stack_h"></h2>
-  <div class="mt-14 grid md:grid-cols-2 gap-16">
-    <div class="rv rv-d1"><p class="mono mb-4" data-i="done"></p><div id="sk-done" class="border-t border-edge"></div></div>
-    <div class="rv rv-d2"><p class="mono mb-4" data-i="exp"></p><div id="sk-exp" class="border-t border-edge"></div><p class="mt-6 border border-edge bg-navy p-5 text-mist" data-i="note"></p></div>
-  </div>
-</div></section>
+    <main>
+      <!-- ============================ HERO ============================ -->
+      <section
+        id="home"
+        class="min-h-svh flex flex-col justify-center pt-28 pb-16 relative overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 grid-bg opacity-50 [mask-image:radial-gradient(ellipse_at_30%_20%,#000,transparent_70%)]"
+        ></div>
+        <div class="orb orb-a" style="top: -120px; left: -120px"></div>
+        <div class="orb orb-b" style="bottom: -160px; right: -120px"></div>
+        <div class="orb orb-c" style="top: 40%; left: 50%"></div>
+        <div class="wrap relative" data-parallax>
+          <p class="mono flex flex-wrap gap-x-6 gap-y-1">
+            <span id="hn" class="text-paper"></span><span id="hr"></span
+            ><span class="text-light" data-i="beyond"></span>
+          </p>
+          <h1
+            class="mt-8 text-[clamp(2.5rem,7.5vw,7rem)]"
+            aria-label="Quietly Building. Constantly Evolving."
+          >
+            <span
+              class="k block overflow-hidden pb-[.1em]"
+              data-k="Quietly Building."
+            ></span>
+            <span
+              class="k block overflow-hidden pb-[.1em] text-mist md:pl-20"
+              data-k="Constantly Evolving."
+            ></span>
+          </h1>
+          <div class="mt-12 grid gap-8 md:grid-cols-2 items-end">
+            <p
+              class="max-w-[36ch] text-lg md:text-xl text-body leading-relaxed"
+              data-i="hello"
+            ></p>
+            <div class="flex flex-wrap gap-3 md:justify-end">
+              <a
+                href="#projects"
+                class="btn btn-primary btn-magnetic"
+                data-i="work"
+              ></a>
+              <a href="#contact" class="btn btn-magnetic" data-i="talk"></a>
+            </div>
+          </div>
+          <p class="mono mt-12 pt-4 border-t border-edge">
+            <span class="text-light">~/portfolio $</span> whoami →
+            <span id="hw"></span><span class="blink"></span>
+          </p>
+        </div>
+        <a
+          href="#about"
+          class="scroll-ind absolute bottom-8 right-8 mono text-xs flex items-center gap-2 text-mist hover:text-light"
+          data-i="scroll"
+        ></a>
+      </section>
 
-<!-- ============================ CERTIFICATES ============================ -->
-<section id="certificates" class="sec overflow-hidden">
-  <div class="wrap flex flex-wrap items-end gap-x-16 gap-y-6">
-    <p class="mono text-light absolute top-8 num-tag" data-i="n3"></p>
-    <h2 class="text-[clamp(2.2rem,6vw,5rem)] rv" data-i="cert_h"></h2>
-    <p class="text-body max-w-[34ch] rv rv-d1" data-i="cert_p"></p>
-  </div>
-  <div id="certs" class="flex items-start gap-5 overflow-x-auto snap-x snap-mandatory pt-12 pb-10 [scrollbar-width:thin] [scrollbar-color:#3B82F6_transparent]" tabindex="0" aria-label="Certificates" style="padding-left:max(1.5rem,calc((100vw - 1240px)/2 + 4rem));padding-right:max(1.5rem,calc((100vw - 1240px)/2 + 4rem))"></div>
-</section>
-<dialog id="dlg" class="m-auto bg-navy text-paper border border-edge p-7 w-[min(92vw,680px)] backdrop:bg-ink/85"><div id="dc"></div><button class="btn mt-4" onclick="dlg.close()">✕</button></dialog>
+      <!-- ============================ ABOUT ============================ -->
+      <section id="about" class="sec">
+        <div class="wrap grid md:grid-cols-12 gap-6">
+          <p class="mono text-light absolute top-8 num-tag" data-i="n1"></p>
+          <h2
+            class="md:col-span-9 text-[clamp(2.2rem,6vw,5rem)] rv"
+            data-i="about_h"
+          ></h2>
+          <aside
+            class="md:col-span-4 md:row-start-2 mt-10 border-l-2 border-electric pl-4 mono text-mist rv self-start leading-relaxed"
+            data-i="portrait"
+          ></aside>
+          <div
+            class="md:col-span-7 md:col-start-6 mt-10 text-xl md:text-2xl leading-relaxed grid gap-5 text-body"
+          >
+            <p class="rv rv-d1 text-paper" data-i="a1"></p>
+            <p class="rv rv-d2" data-i="a2"></p>
+            <p class="rv rv-d3" data-i="a3"></p>
+          </div>
+        </div>
+      </section>
 
-<!-- ============================ PROJECTS ============================ -->
-<section id="projects" class="sec"><div class="wrap">
-  <p class="mono text-light absolute top-8 num-tag" data-i="n4"></p><h2 class="text-[clamp(2.2rem,6vw,5rem)] rv" data-i="proj_h"></h2><div id="pj"></div></div></section>
+      <!-- ============================ STACK ============================ -->
+      <section id="stack" class="sec">
+        <div class="wrap">
+          <p class="mono text-light absolute top-8 num-tag" data-i="n2"></p>
+          <h2 class="text-[clamp(2.2rem,6vw,5rem)] rv" data-i="stack_h"></h2>
+          <div class="mt-14 grid md:grid-cols-2 gap-16">
+            <div class="rv rv-d1">
+              <p class="mono mb-4" data-i="done"></p>
+              <div id="sk-done" class="border-t border-edge"></div>
+            </div>
+            <div class="rv rv-d2">
+              <p class="mono mb-4" data-i="exp"></p>
+              <div id="sk-exp" class="border-t border-edge"></div>
+              <p
+                class="mt-6 border border-edge bg-navy/80 p-5 text-sm text-mist leading-relaxed"
+                data-i="note"
+              ></p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-<!-- ============================ JOURNEY ============================ -->
-<section id="journey" class="sec"><div class="wrap grid md:grid-cols-2 gap-16">
-  <p class="mono text-light absolute top-8 num-tag" data-i="n5"></p>
-  <h2 class="text-[clamp(2.2rem,6vw,5rem)] rv" data-i="jr_h"></h2>
-  <div id="tl-wrap" class="relative">
-    <div id="tl-line"></div>
-    <div id="tl-fill"></div>
-    <ol id="tl" class="relative"></ol>
-  </div>
-</div></section>
+      <!-- ============================ CERTIFICATES ============================ -->
+      <section id="certificates" class="sec">
+        <div class="wrap flex flex-wrap items-end justify-between gap-x-16 gap-y-6">
+          <p class="mono text-light absolute top-8 num-tag" data-i="n3"></p>
+          <h2 class="text-[clamp(2.2rem,6vw,5rem)] rv" data-i="cert_h"></h2>
+          <p class="text-mist max-w-[34ch] rv rv-d1" data-i="cert_p"></p>
+        </div>
+        <div class="wrap">
+          <div
+            id="certs"
+            class="flex items-start gap-6 overflow-x-auto cursor-grab snap-x snap-mandatory mt-12 pt-4 pb-12"
+            tabindex="0"
+            aria-label="Certificates"
+          ></div>
+        </div>
+        <div class="wrap flex items-center gap-6 mt-2">
+          <div class="h-px flex-1 bg-slate-400/20 overflow-hidden">
+            <div
+              id="pb"
+              class="h-0.5 bg-electric origin-left transition-transform duration-300"
+              style="transform: scaleX(0.08)"
+            ></div>
+          </div>
+          <span id="cert-cnt" class="mono hidden sm:inline"></span>
+          <button id="pv" class="btn !px-4 !py-2" aria-label="Previous">
+            ←
+          </button>
+          <button id="nx" class="btn !px-4 !py-2" aria-label="Next">
+            →
+          </button>
+        </div>
+      </section>
+      <dialog
+        id="dlg"
+        class="m-auto bg-navy text-paper border border-slate-400/20 p-6 md:p-8 w-[min(92vw,720px)] backdrop:bg-ink/85 backdrop:backdrop-blur-sm shadow-2xl"
+      >
+        <div id="dc"></div>
+        <div class="flex items-center justify-between gap-3 mt-6 pt-4 border-t border-edge">
+          <div class="flex gap-2">
+            <button id="dlg-pv" type="button" class="btn !px-4 !py-2" aria-label="Previous certificate">←</button>
+            <button id="dlg-nx" type="button" class="btn !px-4 !py-2" aria-label="Next certificate">→</button>
+          </div>
+          <button id="dlg-close" type="button" class="btn !px-5 !py-2">✕</button>
+        </div>
+      </dialog>
 
-<!-- ============================ CONTACT ============================ -->
-<section id="contact" class="sec"><div class="wrap">
-  <p class="mono text-light absolute top-8 num-tag" data-i="n6"></p>
-  <h2 class="text-[clamp(2.6rem,8.5vw,8rem)] max-w-[12ch] rv" data-i="ct_h"></h2>
-  <p class="text-xl text-body max-w-[46ch] my-8 rv rv-d1" data-i="ct_p"></p><ul id="cl" class="border-t border-edge"></ul></div></section>
-</main>
+      <!-- ============================ PROJECTS ============================ -->
+      <section id="projects" class="sec">
+        <div class="wrap">
+          <p class="mono text-light absolute top-8 num-tag" data-i="n4"></p>
+          <h2 class="text-[clamp(2.2rem,6vw,5rem)] rv" data-i="proj_h"></h2>
+          <div id="pj"></div>
+        </div>
+      </section>
 
-<footer class="border-t border-edge py-8 overflow-hidden relative">
-  <div class="mq flex w-max whitespace-nowrap font-head font-bold text-[clamp(3rem,11vw,9rem)] leading-none tracking-tighter text-transparent [-webkit-text-stroke:1px_var(--color-electric)]" aria-hidden="true"><span class="pr-[.5em]">Quietly building. Constantly evolving.</span><span class="pr-[.5em]">Quietly building. Constantly evolving.</span></div>
-  <div class="wrap mono flex flex-wrap justify-between gap-4 mt-6"><span id="cp"></span><span data-i="foot"></span><a href="#home" data-i="top"></a></div>
-</footer>
+      <!-- ============================ JOURNEY ============================ -->
+      <section id="journey" class="sec">
+        <div class="wrap grid md:grid-cols-2 gap-16">
+          <p class="mono text-light absolute top-8 num-tag" data-i="n5"></p>
+          <h2 class="text-[clamp(2.2rem,6vw,5rem)] rv" data-i="jr_h"></h2>
+          <div id="tl-wrap" class="relative">
+            <div
+              class="pointer-events-none absolute left-2 top-4 bottom-0 w-px -translate-x-1/2"
+              aria-hidden="true"
+            >
+              <div id="tl-line"></div>
+              <div id="tl-fill"></div>
+            </div>
+            <ol id="tl" class="relative"></ol>
+          </div>
+        </div>
+      </section>
 
-<script src="config.js"></script>
-<script>
-const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let D=structuredClone(DEFAULT),L=localStorage.getItem('lang')||((navigator.language||'').startsWith('id')?'id':'en');
-const T={
-en:{beyond:"Beyond the Code.",hello:"I’m an aspiring web developer exploring the intersection of creativity, technology, and digital experiences.",work:"Explore My Work",talk:"Let’s Connect",scroll:"scroll ↓",
-about_h:"Behind Every Line of Code, There’s a Curious Mind.",portrait:"No portrait here on purpose. I’d rather you get to know me through how I think and what I build.",
-a1:"I got into web development because I wanted to understand how the things I use every day are actually made. One small experiment with HTML turned into a habit, and the habit turned into a direction.",
-a2:"I’m not the loudest person in the room. I like to sit with a problem, break it down and try again until it works. A challenge doesn’t scare me; it usually means I’m about to learn something.",
-a3:"Right now I’m building my foundations: HTML, CSS, Tailwind and JavaScript fundamentals. I want to build things that feel considered, where the details do some quiet work. This site is part of that practice.",
-stack_h:"What I’ve learned,|and what’s next.",done:"Completed fundamentals",exp:"Currently exploring",note:"Full bar means I’ve finished the fundamentals. Bars under “exploring” show how far along I am, not how good I am.",
-cert_h:"Certificates",cert_p:"Click any card for a closer look.",proj_h:"Selected|Projects",live:"Live site",repo:"GitHub",case_study:"+ case study",
-jr_h:"My|Journey",ct_h:"Every Great Connection Starts Somewhere.",ct_p:"Have an interesting idea, a project, or simply want to talk about technology? I’d be happy to hear from you.",foot:"Designed & coded by hand.",top:"Back to top",
-nav:{home:"home",about:"about",stack:"stack",certificates:"certificates",projects:"projects",journey:"journey",contact:"contact"},
-st:{"Completed":"Completed","In progress":"In progress","In development":"In development","Live":"Live"},now:"Nothing here yet."},
-id:{beyond:"Lebih dari Sekadar Kode.",hello:"Aku calon web developer yang menjelajahi pertemuan antara kreativitas, teknologi, dan pengalaman digital.",work:"Lihat Karyaku",talk:"Mari Terhubung",scroll:"scroll ↓",
-about_h:"Di Balik Setiap Baris Kode, Ada Pikiran yang Penasaran.",portrait:"Sengaja tanpa foto. Aku lebih suka kamu mengenalku lewat cara berpikir dan apa yang kubuat.",
-a1:"Aku masuk ke dunia web development karena ingin tahu bagaimana hal-hal yang kupakai sehari-hari sebenarnya dibuat. Satu eksperimen kecil dengan HTML jadi kebiasaan, dan kebiasaan itu jadi arah.",
-a2:"Aku bukan orang yang paling berisik di ruangan. Aku suka duduk bersama sebuah masalah, memecahnya, lalu mencoba lagi sampai berhasil. Tantangan tidak menakutkanku; biasanya itu tanda aku akan belajar sesuatu.",
-a3:"Saat ini aku membangun fondasi: HTML, CSS, Tailwind, dan dasar-dasar JavaScript. Aku ingin membuat hal-hal yang terasa dipikirkan, di mana detail kecil bekerja dalam diam. Website ini bagian dari latihan itu.",
-stack_h:"Yang sudah kupelajari,|dan yang berikutnya.",done:"Fundamental yang selesai",exp:"Sedang kupelajari",note:"Bar penuh berarti fundamentalnya sudah kuselesaikan. Bar di bagian “sedang kupelajari” menunjukkan sejauh mana aku belajar, bukan seberapa mahir aku.",
-cert_h:"Sertifikat",cert_p:"Klik kartu mana pun untuk melihat lebih dekat.",proj_h:"Proyek|Pilihan",live:"Situs live",repo:"GitHub",case_study:"+ case study",
-jr_h:"Jejak|Belajarku",ct_h:"Setiap Koneksi Hebat Dimulai dari Suatu Tempat.",ct_p:"Punya ide menarik, sebuah proyek, atau sekadar ingin ngobrol soal teknologi? Aku senang mendengarnya.",foot:"Dirancang & dikodekan dengan tangan sendiri.",top:"Kembali ke atas",
-nav:{home:"beranda",about:"tentang",stack:"stack",certificates:"sertifikat",projects:"proyek",journey:"perjalanan",contact:"kontak"},
-st:{"Completed":"Selesai","In progress":"Sedang dikerjakan","In development":"Dalam pengembangan","Live":"Live"},now:"Belum ada."}
-};
-const NAV=Object.keys(T.en.nav),pick=o=>o?.[L]??o?.en??'';
-function view(){const t=T[L];document.documentElement.lang=L;
- document.querySelectorAll('[data-i]').forEach(e=>{const k=e.dataset.i;const v=/^n\d+b?$/.test(k)?'0'+k.match(/\d/)[0]+' / '+['about','stack','certificates','projects','journey','contact'][+k.match(/\d/)[0]-1]:t[k];if(v===undefined)return;if(v.includes('|')){const [a,b]=v.split('|');e.innerHTML=a+'<span class="block text-mist">'+b+'</span>'}else e.textContent=v});
- $('#lg').innerHTML=`<span class="${L=='en'?'text-light':''}">EN</span> <span class="${L=='id'?'text-light':''}">ID</span>`;
- $('#nv').innerHTML=NAV.map(k=>`<li><a class="nav-link text-mist hover:text-paper py-1 transition-colors" href="#${k}">${t.nav[k]}</a></li>`).join('');
- $('#brand').innerHTML=esc(D.name.split(' ').slice(0,2).join(' '))+'<span class="text-light">.</span>';$('#hn').textContent=D.name;$('#hr').textContent=pick(D.role);$('#hw').textContent=pick(D.role).toLowerCase();$('#cp').textContent='© '+new Date().getFullYear()+' '+D.name;
- document.querySelectorAll('[data-k]').forEach(e=>{if(!e.firstChild)e.innerHTML=[...e.dataset.k].map((c,i)=>`<span style="transition-delay:${i*30}ms" aria-hidden="true">${c==' '?'&nbsp;':c}</span>`).join('')});
- const row=(s,i)=>`<div class="grid grid-cols-[44px_1fr_auto] gap-x-4 gap-y-2 items-center py-5 border-b border-edge"><span class="row-span-2 grid place-items-center size-11 border border-edge font-mono text-light">${esc(s.glyph||s.name.slice(0,2))}</span><b class="font-head font-medium text-xl">${esc(s.name)}</b><span class="mono"><span data-count="${s.progress}">0</span>%</span><div class="col-span-2 h-1 bg-raised overflow-hidden"><i class="tick block h-full bg-gradient-to-r from-electric to-light" style="--p:${s.progress/100};transition-delay:${i*120}ms"></i></div></div>`;
- $('#sk-done').innerHTML=D.skills.filter(s=>s.progress>=100).map(row).join('');$('#sk-exp').innerHTML=D.skills.filter(s=>s.progress<100).map(row).join('')||`<p class="py-5 text-mist">${t.now}</p>`;
- $('#certs').innerHTML=D.certs.map((c,i)=>`<button data-c="${i}" class="tilt snap-start shrink-0 w-[min(78vw,380px)] text-left bg-navy border border-edge hover:-translate-y-2 hover:border-light transition ${i%2?'mt-8 md:mt-16':''}"><div class="aspect-[1.42] bg-raised grid place-items-center overflow-hidden border-b border-edge img-wrap">${c.image?`<img src="${esc(c.image)}" alt="${esc(c.title)}" loading="lazy" class="fade-img w-full h-full object-cover">`:`<div class="m-4 w-[calc(100%-2rem)] h-[calc(100%-2rem)] border border-edge grid place-items-center text-center"><span class="mono text-light">✓ ${esc(c.platform)}</span></div>`}</div><div class="p-5"><h3 class="text-xl tracking-tight">${esc(c.title)}</h3><p class="mono mt-1">${esc(c.platform)}${c.date?' · '+esc(c.date):''}</p></div></button>`).join('');
- $('#pj').innerHTML=D.projects.map((p,i)=>`<article class="rv grid md:grid-cols-12 gap-6 items-center mt-24"><div class="md:col-span-8 ${i%2?'md:col-start-5 md:row-start-1':''} aspect-[16/10] border border-edge bg-navy overflow-hidden glow img-wrap">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy" class="fade-img w-full h-full object-cover hover:scale-105 transition duration-700">`:'<div class="w-full h-full grid grid-cols-[1fr_3fr] grid-rows-2 gap-3 p-6" aria-hidden="true"><i class="row-span-2 border border-edge bg-raised"></i><i class="border border-edge bg-electric/20"></i><i class="border border-edge bg-raised"></i></div>'}</div>
- <div class="md:col-span-4 ${i%2?'md:col-start-1 md:row-start-1':''}"><p class="mono">0${i+1} · ${esc(t.st[p.status]||p.status)}</p><h3 class="text-[clamp(1.7rem,3.2vw,2.8rem)] my-3">${esc(p.title)}</h3><p class="text-body mb-5">${esc(pick(p.desc))}</p><div class="flex flex-wrap gap-6 font-head font-medium">${p.live?`<a class="border-b border-electric hover:text-light transition-colors" target="_blank" rel="noopener" href="${esc(p.live)}">${t.live}</a>`:''}${p.repo?`<a class="border-b border-electric hover:text-light transition-colors" target="_blank" rel="noopener" href="${esc(p.repo)}">${t.repo}</a>`:''}<a class="border-b border-dashed border-dim hover:text-light transition-colors" href="#contact">${t.case_study}</a></div></div></article>`).join('');
- $('#tl').innerHTML=D.journey.map((j,i)=>`<li class="tl-item relative pl-11 pb-11 ml-0" data-tl style="transition-delay:${i*80}ms"><i class="tl-dot absolute -left-[5px] top-2 size-4 rounded-full border border-light ${j.done?'bg-light':'bg-ink hollow'}"></i><span class="mono text-light">${esc(j.date)}</span><h3 class="tl-title text-2xl tracking-tight mt-1">${esc(pick(j.title))}</h3><p class="text-body">${esc(pick(j.text))}</p></li>`).join('');
- const lk=D.links;$('#cl').innerHTML=[['Email','mailto:'+lk.email,lk.email],['GitHub',lk.github,lk.github?.replace('https://','')],['LinkedIn',lk.linkedin,lk.linkedin?.replace('https://www.','')],['Instagram',lk.instagram,lk.instagram?.replace('https://www.instagram.com/','@').replace(/\/$/,'')]].filter(l=>l[1]&&l[2]).map(([n,h,l])=>`<li><a href="${esc(h)}" ${n=='Email'?'':'target="_blank" rel="noopener"'} class="glow flex justify-between items-center py-6 border-b border-edge font-head text-2xl md:text-3xl hover:pl-5 hover:text-light transition-all">${n}<span class="mono">${esc(l)}</span></a></li>`).join('');
- document.querySelectorAll('.rv:not(.in)').forEach(e=>io.observe(e));
- document.querySelectorAll('.tl-item').forEach(e=>tlIO.observe(e));
- countUp();
- bindFadeImages();
-}
+      <!-- ============================ CONTACT ============================ -->
+      <section id="contact" class="sec">
+        <div class="wrap">
+          <p class="mono text-light absolute top-8 num-tag" data-i="n6"></p>
+          <h2
+            class="text-[clamp(2.6rem,8.5vw,8rem)] max-w-[12ch] rv"
+            data-i="ct_h"
+          ></h2>
+          <p
+            class="text-xl text-body max-w-[46ch] my-8 rv rv-d1 leading-relaxed"
+            data-i="ct_p"
+          ></p>
+          <ul id="cl" class="border-t border-edge"></ul>
+        </div>
+      </section>
+    </main>
 
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
-const tlIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');tlIO.unobserve(e.target)}}),{threshold:.4});
+    <footer class="border-t border-edge py-8 overflow-hidden relative">
+      <div
+        class="mq flex w-max whitespace-nowrap font-head font-bold text-[clamp(3rem,11vw,9rem)] leading-none tracking-tighter text-transparent [-webkit-text-stroke:1px_var(--color-electric)]"
+        aria-hidden="true"
+      >
+        <span class="pr-[.5em]">Quietly building. Constantly evolving.</span
+        ><span class="pr-[.5em]">Quietly building. Constantly evolving.</span>
+      </div>
+      <div class="wrap mono flex flex-wrap justify-between gap-4 mt-6">
+        <span id="cp"></span><span data-i="foot"></span
+        ><a href="#home" class="hover:text-light transition-colors" data-i="top"></a>
+      </div>
+    </footer>
 
-$('#lg').onclick=()=>{L=L=='en'?'id':'en';localStorage.setItem('lang',L);view()};
-$('#certs').onclick=e=>{const b=e.target.closest('[data-c]');if(!b)return;const c=D.certs[b.dataset.c];$('#dc').innerHTML=`<h3 class="text-2xl">${esc(c.title)}</h3><p class="mono mt-1">${esc(c.platform)} · ${esc(c.date)}</p>${c.image?`<img class="w-full my-4" src="${esc(c.image)}" alt="${esc(c.title)}">`:''}${c.link?`<a class="btn" target="_blank" rel="noopener" href="${esc(c.link)}">Verify</a>`:''}`;dlg.showModal()};
-dlg.onclick=e=>{if(e.target===dlg)dlg.close()};
+    <script src="config.js"></script>
+    <script>
+      const $ = (s) => document.querySelector(s),
+        $$ = (s) => document.querySelectorAll(s),
+        RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
+      const esc = (s) =>
+        String(s ?? "").replace(
+          /[&<>"]/g,
+          (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+        );
+      let D = structuredClone(DEFAULT),
+        L =
+          localStorage.getItem("lang") ||
+          ((navigator.language || "").startsWith("id") ? "id" : "en"),
+        activeCertIdx = 0;
 
-/* ---------- Loader ---------- */
-const NAME='HILMI ROMZI NAGIB',steps=['> boot portfolio','> loading html · css','> loading javascript','> compiling interface','> ready.'];
-function boot(){if(RM)return document.body.classList.add('on');const t0=performance.now();(function f(now){const p=Math.min(1,(now-t0)/2200);$('#cnt').textContent=String(Math.round(p*100)).padStart(2,'0');$('#bar').style.transform=`scaleX(${p})`;$('#sta').textContent=steps[Math.min(4,Math.floor(p*5))];
- $('#nm').textContent=[...NAME].map((c,i)=>c==' '||i<p*NAME.length*1.1?c:'#/%&@?$*+=~'[Math.random()*11|0]).join('');
- p<1?requestAnimationFrame(f):setTimeout(()=>{$('#pre').classList.add('done');document.body.classList.add('on')},450)})(t0)}
+      const T = {
+        en: {
+          beyond: "Beyond the Code.",
+          hello:
+            "I’m an aspiring web developer exploring the intersection of creativity, technology, and digital experiences.",
+          work: "Explore My Work",
+          talk: "Let’s Connect",
+          scroll: "scroll ↓",
+          about_h: "Behind Every Line of Code, There’s a Curious Mind.",
+          portrait:
+            "No portrait here on purpose. I’d rather you get to know me through how I think and what I build.",
+          a1: "I got into web development because I wanted to understand how the things I use every day are actually made. One small experiment with HTML turned into a habit, and the habit turned into a direction.",
+          a2: "I’m not the loudest person in the room. I like to sit with a problem, break it down and try again until it works. A challenge doesn’t scare me; it usually means I’m about to learn something.",
+          a3: "Right now I’m building my foundations: HTML, CSS, Tailwind and JavaScript fundamentals. I want to build things that feel considered, where the details do some quiet work. This site is part of that practice.",
+          stack_h: "What I’ve learned,|and what’s next.",
+          done: "Completed fundamentals",
+          exp: "Currently exploring",
+          note: "Full bar means I’ve finished the fundamentals. Bars under “exploring” show how far along I am, not how good I am.",
+          cert_h: "Certificates",
+          cert_p: "Click any card for a closer look, or drag to browse.",
+          proj_h: "Selected|Projects",
+          live: "Live site ↗",
+          repo: "GitHub ↗",
+          case_study: "+ case study",
+          jr_h: "My|Journey",
+          ct_h: "Every Great Connection Starts Somewhere.",
+          ct_p: "Have an interesting idea, a project, or simply want to talk about technology? I’d be happy to hear from you.",
+          foot: "Designed & coded by hand.",
+          top: "Back to top ↑",
+          copy: "Copy",
+          copied: "Email copied ✓",
+          verify: "Verify credential ↗",
+          nav: {
+            home: "home",
+            about: "about",
+            stack: "stack",
+            certificates: "certificates",
+            projects: "projects",
+            journey: "journey",
+            contact: "contact",
+          },
+          st: {
+            Completed: "Completed",
+            "In progress": "In progress",
+            "In development": "In development",
+            Live: "Live",
+          },
+          now: "Nothing here yet.",
+        },
+        id: {
+          beyond: "Lebih dari Sekadar Kode.",
+          hello:
+            "Aku calon web developer yang menjelajahi pertemuan antara kreativitas, teknologi, dan pengalaman digital.",
+          work: "Lihat Karyaku",
+          talk: "Mari Terhubung",
+          scroll: "scroll ↓",
+          about_h: "Di Balik Setiap Baris Kode, Ada Pikiran yang Penasaran.",
+          portrait:
+            "Sengaja tanpa foto. Aku lebih suka kamu mengenalku lewat cara berpikir dan apa yang kubuat.",
+          a1: "Aku masuk ke dunia web development karena ingin tahu bagaimana hal-hal yang kupakai sehari-hari sebenarnya dibuat. Satu eksperimen kecil dengan HTML jadi kebiasaan, dan kebiasaan itu jadi arah.",
+          a2: "Aku bukan orang yang paling berisik di ruangan. Aku suka duduk bersama sebuah masalah, memecahnya, lalu mencoba lagi sampai berhasil. Tantangan tidak menakutkanku; biasanya itu tanda aku akan belajar sesuatu.",
+          a3: "Saat ini aku membangun fondasi: HTML, CSS, Tailwind, dan dasar-dasar JavaScript. Aku ingin membuat hal-hal yang terasa dipikirkan, di mana detail kecil bekerja dalam diam. Website ini bagian dari latihan itu.",
+          stack_h: "Yang sudah kupelajari,|dan yang berikutnya.",
+          done: "Fundamental yang selesai",
+          exp: "Sedang kupelajari",
+          note: "Bar penuh berarti fundamentalnya sudah kuselesaikan. Bar di bagian “sedang kupelajari” menunjukkan sejauh mana aku belajar, bukan seberapa mahir aku.",
+          cert_h: "Sertifikat",
+          cert_p: "Klik kartu mana pun untuk melihat lebih dekat, atau geser untuk menjelajah.",
+          proj_h: "Proyek|Pilihan",
+          live: "Situs live ↗",
+          repo: "GitHub ↗",
+          case_study: "+ case study",
+          jr_h: "Jejak|Belajarku",
+          ct_h: "Setiap Koneksi Hebat Dimulai dari Suatu Tempat.",
+          ct_p: "Punya ide menarik, sebuah proyek, atau sekadar ingin ngobrol soal teknologi? Aku senang mendengarnya.",
+          foot: "Dirancang & dikodekan dengan tangan sendiri.",
+          top: "Kembali ke atas ↑",
+          copy: "Salin",
+          copied: "Email disalin ✓",
+          verify: "Verifikasi sertifikat ↗",
+          nav: {
+            home: "beranda",
+            about: "tentang",
+            stack: "stack",
+            certificates: "sertifikat",
+            projects: "proyek",
+            journey: "perjalanan",
+            contact: "kontak",
+          },
+          st: {
+            Completed: "Selesai",
+            "In progress": "Sedang dikerjakan",
+            "In development": "Dalam pengembangan",
+            Live: "Live",
+          },
+          now: "Belum ada.",
+        },
+      };
 
-/* ---------- Custom cursor + trail ---------- */
-function cursor(){if(RM||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
- const dot=$('.cursor-dot'),ring=$('.cursor-ring');let mx=0,my=0,rx=0,ry=0;
- const trails=[];const MAX=10;
- for(let i=0;i<MAX;i++){const t=document.createElement('div');t.className='cursor-trail';document.body.appendChild(t);trails.push({el:t,x:0,y:0})}
- addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`});
- (function tick(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;
-  let px=mx,py=my;trails.forEach((t,i)=>{t.x+=(px-t.x)*.35;t.y+=(py-t.y)*.35;t.el.style.transform=`translate(${t.x}px,${t.y}px) translate(-50%,-50%)`;t.el.style.opacity=(1-i/MAX)*.5;px=t.x;py=t.y});
-  requestAnimationFrame(tick)})();
- const hov='a,button,input,[data-c]';
- document.addEventListener('mouseover',e=>{if(e.target.closest(hov))ring.classList.add('hover')});
- document.addEventListener('mouseout',e=>{if(e.target.closest(hov))ring.classList.remove('hover')});
-}
+      const NAV = Object.keys(T.en.nav),
+        pick = (o) => o?.[L] ?? o?.en ?? "";
 
-/* ---------- Scroll progress + parallax orbs + hero parallax ---------- */
-function scrollFX(){
- const bar=$('#progress'),hero=$('[data-parallax]');
- addEventListener('scroll',()=>{
-  const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight);bar.style.transform=`scaleX(${p})`;
-  if(hero){const y=h.scrollTop;hero.style.transform=`translateY(${y*.15}px)`;hero.style.opacity=Math.max(0,1-y/600)}
- },{passive:true});
- addEventListener('mousemove',e=>{const x=(e.clientX/innerWidth-.5),y=(e.clientY/innerHeight-.5);
-  $$('.orb').forEach((o,i)=>{o.style.marginLeft=(x*40*(i?-1:1))+'px';o.style.marginTop=(y*40*(i?-1:1))+'px'})},{passive:true});
-}
+      function view() {
+        const t = T[L];
+        document.documentElement.lang = L;
+        document.querySelectorAll("[data-i]").forEach((e) => {
+          const k = e.dataset.i;
+          const v = /^n\d+b?$/.test(k)
+            ? "0" +
+              k.match(/\d/)[0] +
+              " / " +
+              [
+                "about",
+                "stack",
+                "certificates",
+                "projects",
+                "journey",
+                "contact",
+              ][+k.match(/\d/)[0] - 1]
+            : t[k];
+          if (v === undefined) return;
+          if (v.includes("|")) {
+            const [a, b] = v.split("|");
+            e.innerHTML = a + '<span class="block text-mist">' + b + "</span>";
+          } else e.textContent = v;
+        });
 
-/* ---------- Magnetic buttons ---------- */
-function magnetic(){$$('.btn-magnetic').forEach(b=>{
-  b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;b.style.transform=`translate(${x*.25}px,${y*.35}px)`;b.style.setProperty('--mx',(e.clientX-r.left)+'px');b.style.setProperty('--my',(e.clientY-r.top)+'px')});
-  b.addEventListener('mouseleave',()=>{b.style.transform=''})});
-}
+        $("#lg").innerHTML =
+          `<span class="${L == "en" ? "text-light" : ""}">EN</span> <span class="text-edge">/</span> <span class="${L == "id" ? "text-light" : ""}">ID</span>`;
 
-/* ---------- Glow follow ---------- */
-function glowFollow(){$$('.glow').forEach(g=>{g.addEventListener('mousemove',e=>{const r=g.getBoundingClientRect();g.style.setProperty('--gx',(e.clientX-r.left)+'px');g.style.setProperty('--gy',(e.clientY-r.top)+'px')})});
-}
+        const navHtml = NAV.map(
+          (k) =>
+            `<li><a class="nav-link text-mist hover:text-paper py-1 transition-colors" data-nav="${k}" href="#${k}">${t.nav[k]}</a></li>`,
+        ).join("");
+        $("#nv").innerHTML = navHtml;
+        $("#nv-mob").innerHTML = NAV.map(
+          (k) =>
+            `<li><a class="nav-link inline-block text-mist hover:text-paper py-1 transition-colors" data-nav="${k}" href="#${k}">${t.nav[k]}</a></li>`,
+        ).join("");
 
-/* ---------- Card tilt ---------- */
-function tilt(){$$('.tilt').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateY(${x*8}deg) rotateX(${-y*8}deg)`});c.addEventListener('mouseleave',()=>c.style.transform='')})}
-/* ---------- Magnetic tilt for project headings ---------- */
-function projTilt(){$$('#pj article h3').forEach(h=>{h.addEventListener('mousemove',e=>{const r=h.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;h.style.transform=`skewX(${x*3}deg)`});h.addEventListener('mouseleave',()=>h.style.transform='')})}
+        $("#brand").innerHTML =
+          esc(D.name.split(" ").slice(0, 2).join(" ")) +
+          '<span class="text-light">.</span>';
+        $("#hn").textContent = D.name;
+        $("#hr").textContent = pick(D.role);
+        $("#hw").textContent = pick(D.role).toLowerCase();
+        $("#cp").textContent = "© " + new Date().getFullYear() + " " + D.name;
 
-/* ---------- Stat count up ---------- */
-function countUp(){
- $$('[data-count]').forEach(el=>{
-  const target=+el.dataset.count;let cur=0;
-  const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const t0=performance.now();(function f(n){const p=Math.min(1,(n-t0)/1500);cur=Math.round(target*p);el.textContent=cur;if(p<1)requestAnimationFrame(f)})(performance.now());io2.unobserve(el)}}),{threshold:.5});
-  io2.observe(el);
- });
-}
+        document.querySelectorAll("[data-k]").forEach((e) => {
+          if (!e.firstChild)
+            e.innerHTML = [...e.dataset.k]
+              .map(
+                (c, i) =>
+                  `<span style="transition-delay:${i * 30}ms" aria-hidden="true">${c == " " ? "&nbsp;" : c}</span>`,
+              )
+              .join("");
+        });
 
-/* ---------- Journey timeline fill on scroll ---------- */
-function journeyFill(){
- const sec=$('#journey'),fill=$('#tl-fill'),wrap=$('#tl-wrap');if(!sec||!fill)return;
- function upd(){const r=sec.getBoundingClientRect();const vh=innerHeight;const start=vh*.7;const end=-r.height+vh*.3;
-  const p=Math.max(0,Math.min(1,(start-r.top)/(start-end)));fill.style.height=(p*100)+'%'}
- addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
-}
+        const row = (s, i) =>
+          `<div class="grid grid-cols-[44px_1fr_auto] gap-x-4 gap-y-2 items-center py-5 border-b border-edge"><span class="row-span-2 grid place-items-center size-11 border border-edge bg-navy/60 font-mono text-light">${esc(s.glyph || s.name.slice(0, 2))}</span><b class="font-head font-medium text-xl">${esc(s.name)}</b><span class="mono"><span data-count="${s.progress}">0</span>%</span><div class="col-span-2 h-1 bg-raised overflow-hidden"><i class="tick block h-full bg-gradient-to-r from-electric to-light" style="--p:${s.progress / 100};transition-delay:${i * 120}ms"></i></div></div>`;
 
-/* ---------- Image fade-in observer ---------- */
-const imgIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');imgIO.unobserve(e.target)}}),{threshold:.1});
-function bindFadeImages(){$$('.fade-img:not(.in)').forEach(im=>{if(im.complete&&im.naturalWidth>0)im.classList.add('in');else imgIO.observe(im)})}
+        $("#sk-done").innerHTML =
+          D.skills
+            .filter((s) => s.progress >= 100)
+            .map(row)
+            .join("") || `<p class="py-5 text-mist">${t.now}</p>`;
+        $("#sk-exp").innerHTML =
+          D.skills
+            .filter((s) => s.progress < 100)
+            .map(row)
+            .join("") || `<p class="py-5 text-mist">${t.now}</p>`;
 
-/* ---------- Realtime toast ---------- */
-let toastT=0;
-function toast(msg,done){
- const t=$('#toast');$('#toast-msg').textContent=msg;
- t.classList.add('show');t.querySelector('.dot').style.display=done?'inline-block':'none';
- t.querySelector('.spin').style.display=done?'none':'inline-block';
- clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),done?3200:6000);
-}
+        $("#certs").innerHTML = D.certs
+          .map(
+            (c, i) =>
+              `<button type="button" data-c="${i}" class="group tilt glow snap-start shrink-0 w-[min(78vw,380px)] text-left bg-navy border border-edge ${i % 2 ? "mt-8 md:mt-16" : ""}"><div class="aspect-[1.42] bg-raised grid place-items-center overflow-hidden border-b border-edge img-wrap">${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.title)}" loading="lazy" draggable="false" class="fade-img w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]">` : `<div class="m-4 w-[calc(100%-2rem)] h-[calc(100%-2rem)] border border-edge grid place-items-center text-center transition-colors duration-500 group-hover:border-light/40"><span class="mono text-light">✓ ${esc(c.platform)}</span></div>`}</div><div class="p-5"><h3 class="text-xl tracking-tight transition-colors duration-300 group-hover:text-light">${esc(c.title)}</h3><p class="mono mt-1.5">${esc(c.platform)}${c.date ? " · " + esc(c.date) : ""}</p></div></button>`,
+          )
+          .join("");
+        $("#cert-cnt").textContent = `${D.certs.length} ${L === "id" ? "sertifikat" : "certificates"}`;
 
-/* ---------- Data: Supabase (public read) + realtime updates ---------- */
-let SB=null;
-function initSB(){if(typeof supabase==='undefined'||SUPABASE_URL.includes('YOUR-'))return null;SB=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);return SB}
+        $("#pj").innerHTML = D.projects
+          .map(
+            (p, i) =>
+              `<article class="rv grid md:grid-cols-12 gap-6 items-center mt-24"><div class="md:col-span-8 ${i % 2 ? "md:col-start-5 md:row-start-1" : ""} aspect-[16/10] border border-edge bg-navy overflow-hidden glow img-wrap">${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy" class="fade-img w-full h-full object-cover hover:scale-105 transition duration-700">` : '<div class="w-full h-full grid grid-cols-[1fr_3fr] grid-rows-2 gap-3 p-6" aria-hidden="true"><i class="row-span-2 border border-edge bg-raised"></i><i class="border border-edge bg-electric/20"></i><i class="border border-edge bg-raised"></i></div>'}</div>
+ <div class="md:col-span-4 ${i % 2 ? "md:col-start-1 md:row-start-1" : ""}"><p class="mono text-light">0${i + 1} · ${esc(t.st[p.status] || p.status)}</p><h3 class="text-[clamp(1.7rem,3.2vw,2.8rem)] my-3 transition-transform duration-300">${esc(p.title)}</h3><p class="text-body mb-5 leading-relaxed">${esc(pick(p.desc))}</p><div class="flex flex-wrap gap-6 font-head font-medium">${p.live ? `<a class="border-b border-electric hover:text-light transition-colors" target="_blank" rel="noopener" href="${esc(p.live)}">${t.live}</a>` : ""}${p.repo ? `<a class="border-b border-electric hover:text-light transition-colors" target="_blank" rel="noopener" href="${esc(p.repo)}">${t.repo}</a>` : ""}<a class="border-b border-dashed border-dim hover:text-light transition-colors" href="#contact">${t.case_study}</a></div></div></article>`,
+          )
+          .join("");
 
-// Cross-tab broadcast (works on same browser without any Supabase config)
-const BC = typeof BroadcastChannel!=='undefined' ? new BroadcastChannel('portfolio-content') : null;
-if(BC) BC.onmessage = ev=>{ if(ev.data?.type==='updated'){ reloadAndFlash(); } };
+        $("#tl").innerHTML = D.journey
+          .map(
+            (j, i) =>
+              `<li class="tl-item relative pl-11 pb-11 ml-0" data-tl style="transition-delay:${i * 80}ms"><i class="tl-dot absolute left-0 top-2 size-4 rounded-full border border-light ${j.done ? "bg-light" : "bg-ink hollow"}"></i><span class="mono text-light">${esc(j.date)}</span><h3 class="tl-title text-2xl tracking-tight mt-1">${esc(pick(j.title))}</h3><p class="text-body mt-1 leading-relaxed">${esc(pick(j.text))}</p></li>`,
+          )
+          .join("");
 
-// Polling fallback (used if realtime doesn't connect within 3s)
-let pollT=null, lastHash='';
-function dataHash(){ return JSON.stringify(D).length+'|'+(D.certs?.length||0)+'|'+(D.projects?.length||0) }
-function startPolling(){
-  if(pollT) return;
-  pollT = setInterval(async()=>{
-    try{
-      const r=await fetch(`${SUPABASE_URL}/rest/v1/content?id=eq.1&select=data`,{headers:SUPABASE_KEY.startsWith('sb_publishable')?{apikey:SUPABASE_KEY}:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
-      const j=await r.json();
-      if(j[0]?.data){
-        const h=JSON.stringify(j[0].data).length;
-        if(h!==lastHash){ lastHash=h; D={...D,...j[0].data}; view(); toast('Content updated ↻',true); }
+        const lk = D.links;
+        $("#cl").innerHTML = [
+          ["Email", "mailto:" + lk.email, lk.email],
+          ["GitHub", lk.github, lk.github?.replace(/^https?:\/\//, "")],
+          ["LinkedIn", lk.linkedin, lk.linkedin?.replace(/^https?:\/\/(www\.)?/, "")],
+          [
+            "Instagram",
+            lk.instagram,
+            lk.instagram
+              ?.replace(/^https?:\/\/(www\.)?instagram\.com\//, "@")
+              .replace(/\/$/, ""),
+          ],
+        ]
+          .filter((l) => l[1] && l[2])
+          .map(
+            ([n, h, l]) =>
+              `<li class="border-b border-edge"><div class="glow flex items-center justify-between gap-4 py-6"><a href="${esc(h)}" ${n == "Email" ? "" : 'target="_blank" rel="noopener"'} class="flex-1 flex flex-wrap justify-between items-center gap-2 font-head text-2xl md:text-3xl hover:pl-4 hover:text-light transition-all"><span>${n}</span><span class="mono">${esc(l)}</span></a>${n === "Email" ? `<button type="button" id="copy-em" class="mono border border-edge rounded-full px-3 py-1 hover:border-light hover:text-light transition-colors shrink-0">${t.copy}</button>` : ""}</div></li>`,
+          )
+          .join("");
+
+        const copyBtn = $("#copy-em");
+        if (copyBtn && lk.email) {
+          copyBtn.onclick = async () => {
+            try {
+              await navigator.clipboard.writeText(lk.email);
+              toast(t.copied, true);
+            } catch (e) {}
+          };
+        }
+
+        document.querySelectorAll(".rv:not(.in)").forEach((e) => io.observe(e));
+        document.querySelectorAll(".tl-item").forEach((e) => tlIO.observe(e));
+        countUp();
+        bindFadeImages();
+        updateCertBar();
+        updateActiveNav();
       }
-    }catch(e){}
-  }, 8000);
-}
-function stopPolling(){ if(pollT){ clearInterval(pollT); pollT=null } }
 
-async function reloadAndFlash(){
-  toast('Updating…',false);
-  try{
-    const r=await fetch(`${SUPABASE_URL}/rest/v1/content?id=eq.1&select=data`,{headers:SUPABASE_KEY.startsWith('sb_publishable')?{apikey:SUPABASE_KEY}:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
-    const j=await r.json();
-    if(j[0]?.data){ D={...D,...j[0].data}; view(); }
-  }catch(e){ console.warn('reload failed',e) }
-  toast('Content updated ↻',true);
-  const s=$('#certificates');[s].forEach(el=>{if(el){el.classList.remove('flash-update');void el.offsetWidth;el.classList.add('flash-update')}});
-}
+      const io = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              io.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.15 },
+      );
+      const tlIO = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              tlIO.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.4 },
+      );
 
-async function load(){const sb=SB||initSB();if(!sb)return;
- try{const r=await fetch(`${SUPABASE_URL}/rest/v1/content?id=eq.1&select=data`,{headers:SUPABASE_KEY.startsWith('sb_publishable')?{apikey:SUPABASE_KEY}:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});const j=await r.json();if(j[0]?.data)D={...D,...j[0].data}; lastHash=JSON.stringify(D).length}catch(e){console.warn('Using default content',e)}
- // Subscribe to row changes on content table (UPDATE on id=1 → re-fetch & re-render)
- let rtOK=false;
- try{
-  sb.channel('content-changes').on('postgres_changes',{event:'UPDATE',schema:'public',table:'content',filter:'id=eq.1'},payload=>{
-   rtOK=true; // got at least one realtime event → keep using it
-   reloadAndFlash();
-  }).subscribe(status=>{
-   if(status==='SUBSCRIBED'){ console.log('[realtime] connected') }
-   else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){ console.warn('[realtime] failed, falling back to polling'); startPolling() }
-  });
-  // Safety net: if no realtime confirm after 4s, also start polling
-  setTimeout(()=>{ if(!rtOK && SB?.getChannels?.()?.[0]?.state!=='joined'){ console.log('[realtime] no live events yet, enabling polling'); startPolling() } }, 4000);
- }catch(e){ console.warn('[realtime] init failed, using polling',e); startPolling() }
-}
+      /* ---------- Language & Mobile Menu ---------- */
+      $("#lg").onclick = () => {
+        L = L == "en" ? "id" : "en";
+        localStorage.setItem("lang", L);
+        view();
+      };
 
-view();boot();initSB();load().then(()=>{view();setTimeout(()=>{cursor();scrollFX();magnetic();glowFollow();tilt();projTilt();journeyFill();bindFadeImages()},400)});
-</script>
-</body>
+      const mobBtn = $("#mob-btn"),
+        mobNav = $("#mob-nav");
+      mobBtn.onclick = () => {
+        const open = mobNav.classList.toggle("hidden");
+        mobBtn.setAttribute("aria-expanded", String(!open));
+        mobBtn.textContent = open ? "menu" : "close";
+      };
+      mobNav.onclick = (e) => {
+        if (e.target.closest("a")) {
+          mobNav.classList.add("hidden");
+          mobBtn.setAttribute("aria-expanded", "false");
+          mobBtn.textContent = "menu";
+        }
+      };
+
+      /* ---------- Certificates Carousel + Modal ---------- */
+      const certsEl = $("#certs"),
+        dlg = $("#dlg");
+      let isDraggingCert = false,
+        dragMoved = false,
+        dragStartX = 0,
+        dragStartScroll = 0;
+
+      function updateCertBar() {
+        if (!certsEl) return;
+        const max = certsEl.scrollWidth - certsEl.clientWidth;
+        const ratio = max > 0 ? Math.max(0.08, Math.min(1, 0.08 + (certsEl.scrollLeft / max) * 0.92)) : 1;
+        $("#pb").style.transform = `scaleX(${ratio})`;
+        $("#pv").disabled = certsEl.scrollLeft <= 4;
+        $("#nx").disabled = max <= 4 || certsEl.scrollLeft >= max - 4;
+      }
+
+      certsEl.addEventListener("scroll", updateCertBar, { passive: true });
+      addEventListener("resize", updateCertBar, { passive: true });
+
+      $("#pv").onclick = () => {
+        certsEl.scrollBy({ left: -360, behavior: "smooth" });
+      };
+      $("#nx").onclick = () => {
+        certsEl.scrollBy({ left: 360, behavior: "smooth" });
+      };
+
+      certsEl.addEventListener("mousedown", (e) => {
+        isDraggingCert = true;
+        dragMoved = false;
+        dragStartX = e.pageX - certsEl.offsetLeft;
+        dragStartScroll = certsEl.scrollLeft;
+        certsEl.classList.add("dragging");
+      });
+      addEventListener("mousemove", (e) => {
+        if (!isDraggingCert) return;
+        const x = e.pageX - certsEl.offsetLeft;
+        const walk = x - dragStartX;
+        if (Math.abs(walk) > 6) dragMoved = true;
+        certsEl.scrollLeft = dragStartScroll - walk * 1.2;
+      });
+      addEventListener("mouseup", () => {
+        if (!isDraggingCert) return;
+        isDraggingCert = false;
+        certsEl.classList.remove("dragging");
+      });
+
+      function openCertModal(idx) {
+        if (!D.certs.length) return;
+        activeCertIdx = (idx + D.certs.length) % D.certs.length;
+        const c = D.certs[activeCertIdx];
+        $("#dc").innerHTML =
+          `<div class="flex items-start justify-between gap-4"><div><p class="mono text-light">0${activeCertIdx + 1} / 0${D.certs.length}</p><h3 class="text-2xl md:text-3xl mt-1">${esc(c.title)}</h3><p class="mono mt-1.5">${esc(c.platform)}${c.date ? " · " + esc(c.date) : ""}</p></div></div>${c.image ? `<img class="w-full max-h-[60vh] object-contain bg-raised border border-edge my-5" src="${esc(c.image)}" alt="${esc(c.title)}">` : ""}${c.link ? `<a class="btn btn-primary" target="_blank" rel="noopener" href="${esc(c.link)}">${T[L].verify}</a>` : ""}`;
+        $("#dlg-pv").style.display = D.certs.length > 1 ? "" : "none";
+        $("#dlg-nx").style.display = D.certs.length > 1 ? "" : "none";
+        if (!dlg.open) dlg.showModal();
+      }
+
+      certsEl.onclick = (e) => {
+        if (dragMoved) {
+          dragMoved = false;
+          return;
+        }
+        const b = e.target.closest("[data-c]");
+        if (!b) return;
+        openCertModal(+b.dataset.c);
+      };
+      $("#dlg-pv").onclick = () => openCertModal(activeCertIdx - 1);
+      $("#dlg-nx").onclick = () => openCertModal(activeCertIdx + 1);
+      $("#dlg-close").onclick = () => dlg.close();
+      dlg.onclick = (e) => {
+        if (e.target === dlg) dlg.close();
+      };
+
+      /* ---------- Loader ---------- */
+      const NAME = "HILMI ROMZI NAGIB",
+        steps = [
+          "> boot portfolio",
+          "> loading html · css",
+          "> loading javascript",
+          "> compiling interface",
+          "> ready.",
+        ];
+      function boot() {
+        if (RM) return document.body.classList.add("on");
+        const t0 = performance.now();
+        (function f(now) {
+          const p = Math.min(1, (now - t0) / 2200);
+          $("#cnt").textContent = String(Math.round(p * 100)).padStart(2, "0");
+          $("#bar").style.transform = `scaleX(${p})`;
+          $("#sta").textContent = steps[Math.min(4, Math.floor(p * 5))];
+          $("#nm").textContent = [...NAME]
+            .map((c, i) =>
+              c == " " || i < p * NAME.length * 1.1
+                ? c
+                : "#/%&@?$*+=~"[(Math.random() * 11) | 0],
+            )
+            .join("");
+          p < 1
+            ? requestAnimationFrame(f)
+            : setTimeout(() => {
+                $("#pre").classList.add("done");
+                document.body.classList.add("on");
+              }, 450);
+        })(t0);
+      }
+
+      /* ---------- Custom cursor + trail ---------- */
+      let cursorInitialized = false;
+      function cursor() {
+        if (cursorInitialized || RM || !matchMedia("(hover:hover) and (pointer:fine)").matches)
+          return;
+        cursorInitialized = true;
+        const dot = $(".cursor-dot"),
+          ring = $(".cursor-ring");
+        if (!dot || !ring) return;
+
+        let mx = -100,
+          my = -100,
+          rx = -100,
+          ry = -100,
+          visible = false,
+          hasMoved = false;
+
+        const trails = [];
+        const MAX = 10;
+        for (let i = 0; i < MAX; i++) {
+          const t = document.createElement("div");
+          t.className = "cursor-trail";
+          document.body.appendChild(t);
+          trails.push({ el: t, x: -100, y: -100 });
+        }
+
+        function setVisible(show) {
+          if (visible === show) return;
+          visible = show;
+          const op = show ? "1" : "0";
+          dot.style.opacity = op;
+          ring.style.opacity = op;
+          if (!show) {
+            trails.forEach((t) => {
+              t.el.style.opacity = "0";
+            });
+          }
+        }
+
+        function onPointerMove(e) {
+          if (e.pointerType && e.pointerType !== "mouse") {
+            document.documentElement.classList.remove("has-custom-cursor");
+            setVisible(false);
+            return;
+          }
+          if (!document.documentElement.classList.contains("has-custom-cursor")) {
+            document.documentElement.classList.add("has-custom-cursor");
+          }
+          mx = e.clientX;
+          my = e.clientY;
+          if (!hasMoved) {
+            hasMoved = true;
+            rx = mx;
+            ry = my;
+            trails.forEach((t) => {
+              t.x = mx;
+              t.y = my;
+            });
+          }
+          dot.style.transform = `translate3d(${mx}px,${my}px,0) translate(-50%,-50%)`;
+          setVisible(!dlg?.open);
+        }
+
+        addEventListener("pointermove", onPointerMove, { passive: true });
+        document.addEventListener("mouseleave", () => setVisible(false));
+        document.addEventListener("mouseenter", () => {
+          if (hasMoved && !dlg?.open) setVisible(true);
+        });
+        addEventListener("blur", () => setVisible(false));
+
+        (function tick() {
+          if (dlg?.open) {
+            if (visible) setVisible(false);
+          } else if (hasMoved && visible) {
+            rx += (mx - rx) * 0.2;
+            ry += (my - ry) * 0.2;
+            ring.style.transform = `translate3d(${rx}px,${ry}px,0) translate(-50%,-50%)`;
+            let px = mx,
+              py = my;
+            trails.forEach((t, i) => {
+              t.x += (px - t.x) * 0.35;
+              t.y += (py - t.y) * 0.35;
+              t.el.style.transform = `translate3d(${t.x}px,${t.y}px,0) translate(-50%,-50%)`;
+              t.el.style.opacity = String((1 - i / MAX) * 0.45);
+              px = t.x;
+              py = t.y;
+            });
+          }
+          requestAnimationFrame(tick);
+        })();
+
+        const hov = "a,button,input,[data-c]";
+        document.addEventListener("mouseover", (e) => {
+          if (e.target.closest(hov)) ring.classList.add("hover");
+        });
+        document.addEventListener("mouseout", (e) => {
+          if (e.target.closest(hov)) ring.classList.remove("hover");
+        });
+        document.addEventListener("mousedown", () => ring.classList.add("drag"));
+        document.addEventListener("mouseup", () => ring.classList.remove("drag"));
+      }
+
+      /* ---------- Scroll progress + Active Nav + parallax orbs + hero parallax ---------- */
+      function updateActiveNav() {
+        const y = scrollY + 180;
+        let current = NAV[0];
+        for (const id of NAV) {
+          const sec = document.getElementById(id);
+          if (sec && sec.offsetTop <= y) current = id;
+        }
+        $$("[data-nav]").forEach((a) => {
+          a.classList.toggle("active", a.dataset.nav === current);
+        });
+      }
+
+      function scrollFX() {
+        const bar = $("#progress"),
+          hero = $("[data-parallax]");
+        addEventListener(
+          "scroll",
+          () => {
+            const h = document.documentElement;
+            const max = h.scrollHeight - h.clientHeight;
+            const p = max > 0 ? h.scrollTop / max : 0;
+            bar.style.transform = `scaleX(${p})`;
+            if (hero) {
+              const y = h.scrollTop;
+              hero.style.transform = `translateY(${y * 0.15}px)`;
+              hero.style.opacity = Math.max(0, 1 - y / 600);
+            }
+            updateActiveNav();
+          },
+          { passive: true },
+        );
+        addEventListener(
+          "mousemove",
+          (e) => {
+            const x = e.clientX / innerWidth - 0.5,
+              y = e.clientY / innerHeight - 0.5;
+            $$(".orb").forEach((o, i) => {
+              o.style.marginLeft = x * 40 * (i ? -1 : 1) + "px";
+              o.style.marginTop = y * 40 * (i ? -1 : 1) + "px";
+            });
+          },
+          { passive: true },
+        );
+      }
+
+      /* ---------- Delegated Interactive Effects (survive re-renders!) ---------- */
+      function bindInteractiveFX() {
+        const tiltStates = new WeakMap();
+        const activeTilts = new Set();
+        let tiltRaf = 0;
+
+        function ensureTiltState(el) {
+          let st = tiltStates.get(el);
+          if (!st) {
+            st = { rx: 0, ry: 0, ty: 0, trx: 0, try: 0, tty: 0 };
+            tiltStates.set(el, st);
+          }
+          return st;
+        }
+
+        function runTiltLoop() {
+          tiltRaf = 0;
+          activeTilts.forEach((el) => {
+            if (!el.isConnected) {
+              activeTilts.delete(el);
+              return;
+            }
+            const st = tiltStates.get(el);
+            if (!st) {
+              activeTilts.delete(el);
+              return;
+            }
+            st.rx += (st.trx - st.rx) * 0.14;
+            st.ry += (st.try - st.ry) * 0.14;
+            st.ty += (st.tty - st.ty) * 0.14;
+
+            const done =
+              st.trx === 0 &&
+              st.try === 0 &&
+              st.tty === 0 &&
+              Math.abs(st.rx) < 0.02 &&
+              Math.abs(st.ry) < 0.02 &&
+              Math.abs(st.ty) < 0.05;
+
+            if (done) {
+              el.style.transform = "";
+              activeTilts.delete(el);
+            } else {
+              el.style.transform = `translate3d(0, ${st.ty.toFixed(2)}px, 0) perspective(1000px) rotateX(${st.rx.toFixed(2)}deg) rotateY(${st.ry.toFixed(2)}deg)`;
+            }
+          });
+          if (activeTilts.size > 0) {
+            tiltRaf = requestAnimationFrame(runTiltLoop);
+          }
+        }
+
+        function scheduleTilt(el) {
+          activeTilts.add(el);
+          if (!tiltRaf) tiltRaf = requestAnimationFrame(runTiltLoop);
+        }
+
+        document.addEventListener("mousemove", (e) => {
+          // Magnetic buttons
+          const b = e.target.closest(".btn-magnetic");
+          if (b && !RM) {
+            const r = b.getBoundingClientRect();
+            const x = e.clientX - r.left - r.width / 2,
+              y = e.clientY - r.top - r.height / 2;
+            b.style.transform = `translate(${x * 0.25}px,${y * 0.35}px)`;
+            b.style.setProperty("--mx", e.clientX - r.left + "px");
+            b.style.setProperty("--my", e.clientY - r.top + "px");
+          }
+
+          // Glow follow
+          const g = e.target.closest(".glow");
+          if (g) {
+            const r = g.getBoundingClientRect();
+            g.style.setProperty("--gx", e.clientX - r.left + "px");
+            g.style.setProperty("--gy", e.clientY - r.top + "px");
+          }
+
+          // Smooth lerped 3D card tilt + lift
+          const c = e.target.closest(".tilt");
+          if (c && !RM) {
+            const st = ensureTiltState(c);
+            if (isDraggingCert) {
+              st.trx = 0;
+              st.try = 0;
+              st.tty = 0;
+            } else {
+              const r = c.getBoundingClientRect();
+              const x = (e.clientX - r.left) / r.width - 0.5,
+                y = (e.clientY - r.top) / r.height - 0.5;
+              st.trx = -y * 5.5;
+              st.try = x * 5.5;
+              st.tty = -8;
+            }
+            scheduleTilt(c);
+          }
+
+          // Project heading subtle skew
+          const h = e.target.closest("#pj article h3");
+          if (h && !RM) {
+            const r = h.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            h.style.transform = `skewX(${x * 3}deg)`;
+          }
+        });
+
+        document.addEventListener("mouseout", (e) => {
+          const b = e.target.closest(".btn-magnetic");
+          if (b && !b.contains(e.relatedTarget)) b.style.transform = "";
+
+          const c = e.target.closest(".tilt");
+          if (c && !c.contains(e.relatedTarget)) {
+            const st = ensureTiltState(c);
+            st.trx = 0;
+            st.try = 0;
+            st.tty = 0;
+            scheduleTilt(c);
+          }
+
+          const h = e.target.closest("#pj article h3");
+          if (h && !h.contains(e.relatedTarget)) h.style.transform = "";
+        });
+      }
+
+      /* ---------- Stat count up ---------- */
+      function countUp() {
+        $$("[data-count]").forEach((el) => {
+          const target = +el.dataset.count;
+          const io2 = new IntersectionObserver(
+            (es) =>
+              es.forEach((e) => {
+                if (e.isIntersecting) {
+                  const t0 = performance.now();
+                  (function f(n) {
+                    const p = Math.min(1, (n - t0) / 1500);
+                    el.textContent = Math.round(target * p);
+                    if (p < 1) requestAnimationFrame(f);
+                  })(performance.now());
+                  io2.unobserve(el);
+                }
+              }),
+            { threshold: 0.5 },
+          );
+          io2.observe(el);
+        });
+      }
+
+      /* ---------- Journey timeline fill on scroll ---------- */
+      function journeyFill() {
+        const sec = $("#journey"),
+          fill = $("#tl-fill");
+        if (!sec || !fill) return;
+        function upd() {
+          const r = sec.getBoundingClientRect();
+          const vh = innerHeight;
+          const start = vh * 0.7;
+          const end = -r.height + vh * 0.3;
+          const p = Math.max(0, Math.min(1, (start - r.top) / (start - end)));
+          fill.style.height = p * 100 + "%";
+        }
+        addEventListener("scroll", upd, { passive: true });
+        addEventListener("resize", upd, { passive: true });
+        upd();
+      }
+
+      /* ---------- Image fade-in observer ---------- */
+      const imgIO = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              imgIO.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.1 },
+      );
+      function bindFadeImages() {
+        $$(".fade-img:not(.in)").forEach((im) => {
+          if (im.complete && im.naturalWidth > 0) im.classList.add("in");
+          else imgIO.observe(im);
+        });
+      }
+
+      /* ---------- Realtime toast ---------- */
+      let toastT = 0;
+      function toast(msg, done) {
+        const t = $("#toast");
+        $("#toast-msg").textContent = msg;
+        t.classList.add("show");
+        const dot = t.querySelector(".dot"),
+          spin = t.querySelector(".spin");
+        if (dot) dot.style.display = done ? "inline-block" : "none";
+        if (spin) spin.style.display = done ? "none" : "inline-block";
+        clearTimeout(toastT);
+        toastT = setTimeout(
+          () => t.classList.remove("show"),
+          done ? 3200 : 6000,
+        );
+      }
+
+      /* ---------- Data: Supabase (public read) + realtime updates ---------- */
+      let SB = null;
+      function initSB() {
+        if (typeof supabase === "undefined" || SUPABASE_URL.includes("YOUR"))
+          return null;
+        SB = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        return SB;
+      }
+
+      const BC =
+        typeof BroadcastChannel !== "undefined"
+          ? new BroadcastChannel("portfolio-content")
+          : null;
+      if (BC)
+        BC.onmessage = (ev) => {
+          if (ev.data?.type === "updated") {
+            reloadAndFlash();
+          }
+        };
+
+      let pollT = null,
+        lastJson = "";
+      function startPolling() {
+        if (pollT) return;
+        pollT = setInterval(async () => {
+          try {
+            const r = await fetch(
+              `${SUPABASE_URL}/rest/v1/content?id=eq.1&select=data`,
+              {
+                headers: SUPABASE_KEY.startsWith("sb_publishable")
+                  ? { apikey: SUPABASE_KEY }
+                  : {
+                      apikey: SUPABASE_KEY,
+                      Authorization: "Bearer " + SUPABASE_KEY,
+                    },
+              },
+            );
+            const j = await r.json();
+            if (j[0]?.data) {
+              const raw = JSON.stringify(j[0].data);
+              if (raw !== lastJson) {
+                lastJson = raw;
+                D = { ...D, ...j[0].data };
+                view();
+                toast("Content updated ↻", true);
+              }
+            }
+          } catch (e) {}
+        }, 8000);
+      }
+
+      async function reloadAndFlash() {
+        toast("Updating…", false);
+        try {
+          const r = await fetch(
+            `${SUPABASE_URL}/rest/v1/content?id=eq.1&select=data`,
+            {
+              headers: SUPABASE_KEY.startsWith("sb_publishable")
+                ? { apikey: SUPABASE_KEY }
+                : {
+                    apikey: SUPABASE_KEY,
+                    Authorization: "Bearer " + SUPABASE_KEY,
+                  },
+            },
+          );
+          const j = await r.json();
+          if (j[0]?.data) {
+            lastJson = JSON.stringify(j[0].data);
+            D = { ...D, ...j[0].data };
+            view();
+          }
+        } catch (e) {
+          console.warn("reload failed", e);
+        }
+        toast("Content updated ↻", true);
+        ["#stack", "#certificates", "#projects", "#journey"].forEach((sel) => {
+          const el = $(sel);
+          if (el) {
+            el.classList.remove("flash-update");
+            void el.offsetWidth;
+            el.classList.add("flash-update");
+          }
+        });
+      }
+
+      async function load() {
+        const sb = SB || initSB();
+        if (!sb) return;
+        try {
+          const r = await fetch(
+            `${SUPABASE_URL}/rest/v1/content?id=eq.1&select=data`,
+            {
+              headers: SUPABASE_KEY.startsWith("sb_publishable")
+                ? { apikey: SUPABASE_KEY }
+                : {
+                    apikey: SUPABASE_KEY,
+                    Authorization: "Bearer " + SUPABASE_KEY,
+                  },
+            },
+          );
+          const j = await r.json();
+          if (j[0]?.data) {
+            D = { ...D, ...j[0].data };
+            lastJson = JSON.stringify(j[0].data);
+          }
+        } catch (e) {
+          console.warn("Using default content", e);
+        }
+        let rtOK = false;
+        try {
+          sb.channel("content-changes")
+            .on(
+              "postgres_changes",
+              {
+                event: "UPDATE",
+                schema: "public",
+                table: "content",
+                filter: "id=eq.1",
+              },
+              () => {
+                rtOK = true;
+                reloadAndFlash();
+              },
+            )
+            .subscribe((status) => {
+              if (status === "SUBSCRIBED") {
+                console.log("[realtime] connected");
+              } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+                console.warn("[realtime] failed, falling back to polling");
+                startPolling();
+              }
+            });
+          setTimeout(() => {
+            if (!rtOK && SB?.getChannels?.()?.[0]?.state !== "joined") {
+              console.log("[realtime] no live events yet, enabling polling");
+              startPolling();
+            }
+          }, 4000);
+        } catch (e) {
+          console.warn("[realtime] init failed, using polling", e);
+          startPolling();
+        }
+      }
+
+      view();
+      boot();
+      cursor();
+      scrollFX();
+      bindInteractiveFX();
+      initSB();
+      load().then(() => {
+        view();
+        setTimeout(() => {
+          journeyFill();
+          bindFadeImages();
+        }, 400);
+      });
+    </script>
+  </body>
 </html>

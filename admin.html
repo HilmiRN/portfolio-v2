@@ -5,49 +5,122 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Admin — Hilmi Romzi.</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.4"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style type="text/tailwindcss">
-@theme{--color-ink:#090D16;--color-navy:#111827;--color-raised:#151D2B;--color-paper:#F8FAFC;--color-mist:#94A3B8;--color-electric:#3B82F6;--color-light:#60A5FA;
---font-head:'Space Grotesk',system-ui,sans-serif;--font-body:'Inter',system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,monospace}
-body{@apply bg-ink text-paper font-body antialiased}
-.in{@apply w-full bg-raised border border-slate-400/20 px-3 py-2.5 text-sm text-paper font-body outline-none focus:border-light}
-.btn{@apply inline-flex items-center justify-center rounded-full bg-electric px-6 py-3 font-head font-medium transition hover:bg-light hover:text-ink disabled:opacity-50}
-.btn2{@apply rounded-full border border-slate-400/20 px-5 py-2.5 font-head text-sm hover:border-light}
+@theme{
+  --color-ink:#0a0e17;
+  --color-navy:#10182a;
+  --color-raised:#152238;
+  --color-paper:#f4f6fa;
+  --color-mist:#8b94a8;
+  --color-body:#a3acbe;
+  --color-electric:#3b82f6;
+  --color-light:#60a5fa;
+  --color-edge:rgba(255,255,255,0.08);
+  --font-head:'Space Grotesk',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+body{@apply bg-ink text-paper font-body antialiased selection:bg-electric/30}
+.grid-bg{
+  background-image:
+    linear-gradient(rgba(148,163,184,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148,163,184,0.12) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.in{@apply w-full bg-raised/90 border border-edge rounded-lg px-3.5 py-2.5 text-sm text-paper font-body outline-none transition focus:border-light focus:ring-2 focus:ring-electric/20 placeholder:text-mist/40}
+.btn{@apply inline-flex items-center justify-center gap-2 rounded-full bg-electric px-6 py-2.5 font-head font-medium text-sm transition hover:bg-light hover:text-ink disabled:opacity-50 disabled:pointer-events-none cursor-pointer}
+.btn2{@apply inline-flex items-center justify-center gap-1.5 rounded-full border border-edge bg-raised/50 px-4 py-2 font-head text-xs text-paper transition hover:border-light hover:text-light disabled:opacity-35 disabled:pointer-events-none cursor-pointer}
+.btn-danger{@apply inline-flex items-center justify-center gap-1.5 rounded-full border border-red-400/20 bg-red-500/10 px-3.5 py-1.5 font-mono text-xs text-red-300 transition hover:border-red-400 hover:bg-red-500/20 cursor-pointer}
 .lab{@apply grid gap-1.5 font-mono text-xs text-mist}
-.tab{@apply block w-full text-left font-mono text-[13px] text-mist px-3 py-2.5 border-l border-transparent hover:text-paper}
-.tab.on{@apply bg-raised text-paper border-electric}
+.tab{@apply flex items-center justify-between w-full text-left font-mono text-[13px] text-mist px-3.5 py-2.5 rounded-lg border border-transparent transition hover:text-paper hover:bg-raised/50 cursor-pointer whitespace-nowrap}
+.tab.on{@apply bg-raised text-paper border-edge shadow-sm}
+.tab.on .badge{@apply bg-electric/20 text-light border-electric/40}
+#toast{
+  position:fixed;right:24px;bottom:24px;z-index:80;
+  transform:translateY(140%);opacity:0;pointer-events:none;
+  transition:transform .45s cubic-bezier(.2,.9,.2,1),opacity .35s;
+}
+#toast.show{transform:translateY(0);opacity:1}
 </style>
 </head>
 <body>
 
-<section id="login" class="min-h-screen grid place-items-center p-6">
-  <form id="lf" class="w-full max-w-md border border-slate-400/20 bg-navy p-10 grid gap-5">
-    <p class="font-mono text-xs text-light">admin access</p>
-    <h1 class="font-head text-4xl tracking-tight">Sign in</h1>
-    <input id="em" type="email" required placeholder="Email" autocomplete="username" class="in">
-    <input id="pw" type="password" required placeholder="Password" autocomplete="current-password" class="in">
-    <button class="btn">Sign in</button>
-    <p id="err" class="font-mono text-xs text-red-400" role="alert"></p>
-    <p id="st" class="font-mono text-xs text-mist">Checking connection…</p>
-    <p class="font-mono text-[11px] text-mist">Use the email &amp; password of the user you created in Supabase → Authentication → Users (not your Supabase dashboard login).</p>
-    <button type="button" id="fp" class="font-mono text-xs text-light text-left hover:underline">Forgot password?</button>
+<div id="toast" role="status" aria-live="polite" class="bg-navy/95 backdrop-blur-md border border-light/40 px-4 py-3 rounded-full shadow-2xl flex items-center gap-2.5 font-mono text-xs max-w-[90vw]">
+  <span id="toast-dot" class="size-2 rounded-full bg-light"></span>
+  <span id="toast-msg">Ready</span>
+</div>
+
+<!-- ============================ LOGIN ============================ -->
+<section id="login" class="min-h-screen grid place-items-center p-6 relative overflow-hidden">
+  <div class="absolute inset-0 grid-bg opacity-40 [mask-image:radial-gradient(ellipse_at_center,#000,transparent_75%)]"></div>
+  <form id="lf" class="relative w-full max-w-md border border-edge bg-navy/90 backdrop-blur-md rounded-2xl p-8 md:p-10 grid gap-5 shadow-2xl">
+    <div>
+      <p class="font-mono text-xs text-light">admin access</p>
+      <h1 class="font-head text-4xl tracking-tight mt-1">Sign in<span class="text-light">.</span></h1>
+    </div>
+    <label class="lab">
+      Email
+      <input id="em" type="email" required placeholder="you@example.com" autocomplete="username" class="in">
+    </label>
+    <label class="lab">
+      Password
+      <div class="relative">
+        <input id="pw" type="password" required placeholder="••••••••••••" autocomplete="current-password" class="in pr-16">
+        <button type="button" id="toggle-pw" class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[11px] text-mist hover:text-light cursor-pointer">show</button>
+      </div>
+    </label>
+    <button id="login-btn" class="btn w-full py-3 mt-1">Sign in</button>
+    <p id="err" class="font-mono text-xs text-red-400 empty:hidden" role="alert"></p>
+    <div class="pt-3 border-t border-edge grid gap-2">
+      <p id="st" class="font-mono text-xs text-mist">Checking connection…</p>
+      <p class="font-mono text-[11px] text-mist/80 leading-relaxed">Use the email &amp; password of the user created in Supabase → Authentication → Users.</p>
+      <button type="button" id="fp" class="font-mono text-xs text-light text-left hover:underline w-fit cursor-pointer">Forgot password?</button>
+    </div>
   </form>
 </section>
 
-<div id="app" style="display:none" class="min-h-screen md:grid-cols-[240px_1fr]">
-  <aside class="bg-navy border-b md:border-b-0 md:border-r border-slate-400/15 p-6 flex md:flex-col justify-between gap-6 md:sticky md:top-0 md:h-screen">
-    <div><p class="font-head text-xl">Hilmi Romzi<span class="text-light">.</span></p><p class="font-mono text-xs text-light mb-8">admin panel</p>
-      <nav id="tabs" class="flex md:block gap-1 overflow-x-auto"></nav></div>
-    <div class="grid gap-2 font-mono text-xs text-mist"><a href="index.html" target="_blank" class="hover:text-paper">View site ↗</a><button id="out" class="text-left hover:text-paper">Sign out</button></div>
+<!-- ============================ DASHBOARD ============================ -->
+<div id="app" style="display:none" class="min-h-screen md:grid-cols-[250px_1fr]">
+  <aside class="bg-navy/95 border-b md:border-b-0 md:border-r border-edge p-5 md:p-6 flex md:flex-col justify-between gap-4 md:sticky md:top-0 md:h-screen z-30">
+    <div class="w-full">
+      <div class="flex items-center justify-between md:block mb-4 md:mb-8">
+        <div>
+          <p class="font-head text-xl font-medium">Hilmi Romzi<span class="text-light">.</span></p>
+          <p class="font-mono text-xs text-light">admin panel</p>
+        </div>
+        <div class="flex md:hidden items-center gap-3 font-mono text-xs text-mist">
+          <a href="index.html" target="_blank" class="hover:text-paper">Site ↗</a>
+          <button id="out-mob" class="hover:text-red-300 cursor-pointer">Sign out</button>
+        </div>
+      </div>
+      <nav id="tabs" class="flex md:grid gap-1.5 overflow-x-auto pb-1 md:pb-0"></nav>
+    </div>
+    <div class="hidden md:grid gap-2.5 pt-4 border-t border-edge font-mono text-xs text-mist">
+      <a href="index.html" target="_blank" class="flex items-center justify-between hover:text-paper transition"><span>View live site</span><span>↗</span></a>
+      <button id="out" class="text-left hover:text-red-300 transition cursor-pointer">Sign out</button>
+    </div>
   </aside>
+
   <main class="p-6 md:p-12 max-w-5xl w-full">
-    <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
-      <div><h2 id="ttl" class="font-head text-4xl tracking-tight"></h2><p id="msg" class="font-mono text-xs text-mist mt-2" role="status"></p></div>
-      <button id="save" class="btn">Save changes</button>
+    <header class="sticky top-0 z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-4 mb-8 bg-ink/85 backdrop-blur-md border-b border-edge flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-3">
+          <h2 id="ttl" class="font-head text-3xl md:text-4xl tracking-tight"></h2>
+          <span id="dirty-pill" class="hidden font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-400/30">unsaved changes</span>
+        </div>
+        <p id="msg" class="font-mono text-xs text-mist mt-1" role="status">Press Ctrl+S / Cmd+S anytime to publish.</p>
+      </div>
+      <div class="flex items-center gap-2.5">
+        <button id="discard" type="button" class="btn2 hidden">Discard</button>
+        <button id="save" class="btn">Save changes</button>
+      </div>
     </header>
-    <div id="body" class="grid gap-5"></div>
+    <div id="body" class="grid gap-6"></div>
   </main>
 </div>
 
@@ -56,57 +129,408 @@ body{@apply bg-ink text-paper font-body antialiased}
 const $=s=>document.querySelector(s),sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const BC = typeof BroadcastChannel!=='undefined' ? new BroadcastChannel('portfolio-content') : null;
 const get=(o,p)=>p.split('.').reduce((a,k)=>a?.[k],o),set=(o,p,v)=>{const k=p.split('.'),l=k.pop();k.reduce((a,x)=>a[x]??={},o)[l]=v};
-const msg=(t,bad)=>{$('#msg').textContent=t;$('#msg').className='font-mono text-xs mt-2 '+(bad?'text-red-400':'text-mist')};
-// What can be edited. [path, label, kind]  kind: area | img | num | (text)
+
+let toastTimer=0;
+function showToast(text,type='info'){
+  const t=$('#toast'),dot=$('#toast-dot');
+  $('#toast-msg').textContent=text;
+  dot.className='size-2 rounded-full '+(type==='err'?'bg-red-400':type==='ok'?'bg-emerald-400':'bg-light');
+  t.style.borderColor=type==='err'?'rgba(248,113,113,.45)':type==='ok'?'rgba(52,211,153,.45)':'rgba(96,165,250,.45)';
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+const msg=(t,bad)=>{
+  $('#msg').textContent=t||'Press Ctrl+S / Cmd+S anytime to publish.';
+  $('#msg').className='font-mono text-xs mt-1 '+(bad?'text-red-400':'text-mist');
+  if(t)showToast(t,bad?'err':'ok');
+};
+
+let dirty=false,savedSnapshot='';
+function markDirty(state=true){
+  dirty=state;
+  $('#dirty-pill').classList.toggle('hidden',!dirty);
+  $('#discard').classList.toggle('hidden',!dirty);
+}
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
+
+const PROJECT_STATUSES=["In development","In progress","Live","Completed"];
+
 const TABS={
- profile:{label:"Profile",single:true,fields:[["name","Full name"],["role.en","Role (EN)"],["role.id","Role (ID)"],["links.email","Email"],["links.github","GitHub URL"],["links.linkedin","LinkedIn URL"],["links.instagram","Instagram URL"]]},
- projects:{label:"Projects",key:"projects",fields:[["title","Title"],["status","Status (In development / In progress / Live)"],["desc.en","Description (EN)","area"],["desc.id","Description (ID)","area"],["live","Live URL"],["repo","GitHub URL"],["image","Preview image","img"]],blank:{title:"",status:"In progress",desc:{en:"",id:""},live:"",repo:"",image:""}},
- certs:{label:"Certificates",key:"certs",fields:[["title","Title"],["platform","Platform"],["date","Date (e.g. Nov 2026)"],["link","Verification link (optional)"],["image","Certificate image","img"]],blank:{title:"",platform:"SoloLearn",date:"",image:"",link:""}},
- skills:{label:"Skills",key:"skills",fields:[["name","Name"],["glyph","Glyph (2–3 chars)"],["progress","Progress 0–100 (100 = completed)","num"]],blank:{name:"",glyph:"",progress:0}},
- journey:{label:"Journey",key:"journey",fields:[["date","Date"],["title.en","Title (EN)"],["title.id","Title (ID)"],["text.en","Note (EN)","area"],["text.id","Note (ID)","area"]],blank:{date:"",done:false,title:{en:"",id:""},text:{en:"",id:""}}},
- security:{label:"Security",custom:true}};
+ profile:{
+   label:"Profile",
+   single:true,
+   fields:[
+     ["name","Full name"],
+     ["role.en","Role (EN)"],
+     ["role.id","Role (ID)"],
+     ["links.email","Email"],
+     ["links.github","GitHub URL"],
+     ["links.linkedin","LinkedIn URL"],
+     ["links.instagram","Instagram URL"]
+   ]
+ },
+ projects:{
+   label:"Projects",
+   key:"projects",
+   fields:[
+     ["title","Title"],
+     ["status","Status","status"],
+     ["desc.en","Description (EN)","area"],
+     ["desc.id","Description (ID)","area"],
+     ["live","Live URL"],
+     ["repo","GitHub URL"],
+     ["image","Preview image","img"]
+   ],
+   blank:{title:"",status:"In progress",desc:{en:"",id:""},live:"",repo:"",image:""}
+ },
+ certs:{
+   label:"Certificates",
+   key:"certs",
+   fields:[
+     ["title","Title"],
+     ["platform","Platform"],
+     ["date","Date (e.g. Nov 2026)"],
+     ["link","Verification link (optional)"],
+     ["image","Certificate image","img"]
+   ],
+   blank:{title:"",platform:"SoloLearn",date:"",image:"",link:""}
+ },
+ skills:{
+   label:"Skills",
+   key:"skills",
+   fields:[
+     ["name","Name"],
+     ["glyph","Glyph (2–3 chars)"],
+     ["progress","Progress (100 = Completed fundamentals)","skill"]
+   ],
+   blank:{name:"",glyph:"",progress:50}
+ },
+ journey:{
+   label:"Journey",
+   key:"journey",
+   fields:[
+     ["date","Date"],
+     ["title.en","Title (EN)"],
+     ["title.id","Title (ID)"],
+     ["text.en","Note (EN)","area"],
+     ["text.id","Note (ID)","area"]
+   ],
+   blank:{date:"",done:false,title:{en:"",id:""},text:{en:"",id:""}}
+ },
+ security:{label:"Security",custom:true}
+};
+
 let data,tab='profile';
-// Converts PNG/JPG to WebP in the browser (max 1600px wide, quality .82). Keeps the original if WebP would not be smaller.
-async function toWebp(file,maxW=1600,q=.82){if(!/^image\/(png|jpe?g|bmp)/.test(file.type))return file;
- try{const bmp=await createImageBitmap(file),s=Math.min(1,maxW/bmp.width),c=document.createElement('canvas');c.width=Math.round(bmp.width*s);c.height=Math.round(bmp.height*s);
-  c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);const blob=await new Promise(r=>c.toBlob(r,'image/webp',q));
-  return blob&&blob.size<file.size?new File([blob],file.name.replace(/\.\w+$/,'')+'.webp',{type:'image/webp'}):file}catch(e){return file}}
-function input(o,[p,l,k]){const w=document.createElement('label');w.className='lab';w.append(l);
- const e=document.createElement(k==='area'?'textarea':'input');if(k==='area')e.rows=3;else e.type=k==='num'?'number':'text';if(k==='num'){e.min=0;e.max=100}
- e.className='in';e.value=get(o,p)??'';e.oninput=()=>set(o,p,k==='num'?+e.value:e.value);w.append(e);
- if(k==='img'){const f=document.createElement('input');f.type='file';f.accept='image/*';f.className='text-xs';
-  f.onchange=async()=>{const orig=f.files[0];if(!orig)return;msg('Converting to WebP…');const file=await toWebp(orig);const path=Date.now()+'-'+file.name.replace(/[^\w.-]/g,'_');
-   const {error}=await sb.storage.from('media').upload(path,file,{contentType:file.type,cacheControl:'31536000'});if(error)return msg(error.message,1);
-   const url=sb.storage.from('media').getPublicUrl(path).data.publicUrl;e.value=url;set(o,p,url);msg('Uploaded ('+Math.round(orig.size/1024)+' KB → '+Math.round(file.size/1024)+' KB, '+file.type.replace('image/','').toUpperCase()+'). Press “Save changes” to publish.')};w.append(f)}
- return w}
-function card(o,T,del){const c=document.createElement('div');c.className='border border-slate-400/15 bg-navy p-6 grid gap-4 md:grid-cols-2';
- T.fields.forEach(f=>{const w=input(o,f);if(f[2]==='area'||f[2]==='img')w.classList.add('md:col-span-2');c.append(w)});
- if(T.key==='journey'){const d=document.createElement('label');d.className='lab flex items-center gap-2';const cb=document.createElement('input');cb.type='checkbox';cb.checked=!!o.done;cb.onchange=()=>o.done=cb.checked;d.append(cb,'Completed');c.append(d)}
- if(del){const b=document.createElement('button');b.type='button';b.className='btn2 justify-self-start';b.textContent='Delete';b.onclick=del;c.append(b)}return c}
-function security(b){const c=document.createElement('div');c.className='border border-slate-400/15 bg-navy p-6 grid gap-4 max-w-md';
- c.innerHTML=`<p class="font-mono text-xs text-mist">Choose a long, unique password (12+ characters) and keep it in a password manager.</p>
- <label class="lab">New password<input id="np" type="password" autocomplete="new-password" class="in"></label>
- <label class="lab">Repeat new password<input id="np2" type="password" autocomplete="new-password" class="in"></label>
- <button id="npb" type="button" class="btn justify-self-start">Update password</button>`;b.append(c);
- c.querySelector('#npb').onclick=async()=>{const a=c.querySelector('#np').value;if(a.length<12)return msg('Use at least 12 characters.',1);if(a!==c.querySelector('#np2').value)return msg('The two passwords do not match.',1);
-  const {error}=await sb.auth.updateUser({password:a});error?msg(error.message,1):msg('Password updated. Use it the next time you sign in.')}}
-function render(){const T=TABS[tab],b=$('#body');b.innerHTML='';$('#ttl').textContent=T.label;$('#save').style.display=T.custom?'none':'';
- $('#tabs').innerHTML=Object.entries(TABS).map(([k,v])=>`<button class="tab ${k===tab?'on':''}" data-t="${k}">${v.label}</button>`).join('');
- if(T.custom)return security(b);
- if(T.single)return b.append(card(data,T));
- data[T.key].forEach((o,i)=>b.append(card(o,T,()=>{if(confirm('Delete this item?')){data[T.key].splice(i,1);render()}})));
- const a=document.createElement('button');a.className='btn2 border-dashed justify-self-start';a.textContent='+ Add';a.onclick=()=>{data[T.key].push(structuredClone(T.blank));render()};b.append(a)}
-$('#tabs').onclick=e=>{const t=e.target.closest('[data-t]');if(t){tab=t.dataset.t;msg('');render()}};
-$('#save').onclick=async()=>{$('#save').disabled=true;msg('Saving…');const {error}=await sb.from('content').upsert({id:1,data});$('#save').disabled=false;if(error){msg(error.message,1)}else{msg('Saved. The public site is updated.');try{BC?.postMessage({type:'updated'})}catch(e){}}};
-async function start(){const {data:r}=await sb.from('content').select('data').eq('id',1).maybeSingle();data=r?.data?{...structuredClone(DEFAULT),...r.data}:structuredClone(DEFAULT);
- $('#login').style.display='none';$('#app').style.display='grid';render()}
-$('#lf').onsubmit=async e=>{e.preventDefault();$('#err').textContent='';const {error}=await sb.auth.signInWithPassword({email:$('#em').value,password:$('#pw').value});error?$('#err').textContent='Wrong email or password.':start()};
-$('#out').onclick=async()=>{await sb.auth.signOut();location.reload()};
-(async()=>{const s=$('#st');if(SUPABASE_URL.includes('YOUR')||SUPABASE_KEY.includes('YOUR')){s.textContent='⚠ config.js is not filled in yet.';return}
- const {error}=await sb.from('content').select('id').limit(1);
- s.textContent=error?'⚠ '+error.message+' — did you run the setup SQL?':'✓ Connected to Supabase';s.className='font-mono text-xs '+(error?'text-red-400':'text-light')})();
-$('#fp').onclick=async()=>{const e=$('#em').value;if(!e){$('#err').className='font-mono text-xs text-red-400';return $('#err').textContent='Type your email above first.'}
- const {error}=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});$('#err').className='font-mono text-xs '+(error?'text-red-400':'text-light');$('#err').textContent=error?error.message:'If that email has an account, a reset link was sent.'};
+
+async function toWebp(file,maxW=1600,q=.82){
+  if(!/^image\/(png|jpe?g|bmp)/.test(file.type))return file;
+  try{
+    const bmp=await createImageBitmap(file),s=Math.min(1,maxW/bmp.width),c=document.createElement('canvas');
+    c.width=Math.round(bmp.width*s);c.height=Math.round(bmp.height*s);
+    c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+    const blob=await new Promise(r=>c.toBlob(r,'image/webp',q));
+    return blob&&blob.size<file.size?new File([blob],file.name.replace(/\.\w+$/,'')+'.webp',{type:'image/webp'}):file;
+  }catch(e){return file;}
+}
+
+async function uploadMediaFile(orig,onSuccess){
+  if(!orig)return;
+  showToast('Converting to WebP…','info');
+  const file=await toWebp(orig);
+  const path=Date.now()+'-'+file.name.replace(/[^\w.-]/g,'_');
+  const {error}=await sb.storage.from('media').upload(path,file,{contentType:file.type,cacheControl:'31536000'});
+  if(error)return msg(error.message,1);
+  const url=sb.storage.from('media').getPublicUrl(path).data.publicUrl;
+  onSuccess(url);
+  markDirty(true);
+  msg('Uploaded ('+Math.round(orig.size/1024)+' KB → '+Math.round(file.size/1024)+' KB, '+file.type.replace('image/','').toUpperCase()+'). Save changes to publish.');
+}
+
+function input(o,[p,l,k]){
+  const w=document.createElement('label');w.className='lab';w.append(l);
+
+  if(k==='status'){
+    const sel=document.createElement('select');sel.className='in';
+    const cur=get(o,p)||'In progress';
+    const opts=PROJECT_STATUSES.includes(cur)?PROJECT_STATUSES:[cur,...PROJECT_STATUSES];
+    opts.forEach(opt=>{
+      const op=document.createElement('option');op.value=opt;op.textContent=opt;
+      if(opt===cur)op.selected=true;
+      sel.append(op);
+    });
+    sel.onchange=()=>{set(o,p,sel.value);markDirty(true);};
+    w.append(sel);
+    return w;
+  }
+
+  if(k==='skill'){
+    const wrap=document.createElement('div');wrap.className='grid gap-2';
+    const row=document.createElement('div');row.className='flex items-center gap-3';
+    const range=document.createElement('input');range.type='range';range.min=0;range.max=100;range.value=get(o,p)??0;
+    range.className='flex-1 accent-electric cursor-pointer';
+    const num=document.createElement('input');num.type='number';num.min=0;num.max=100;num.value=get(o,p)??0;
+    num.className='in !w-20 text-center font-mono';
+    const badge=document.createElement('span');
+    const syncBadge=(val)=>{
+      const done=val>=100;
+      badge.className='font-mono text-[11px] px-2.5 py-1 rounded-full border w-fit '+(done?'bg-emerald-500/10 text-emerald-300 border-emerald-400/30':'bg-electric/10 text-light border-electric/30');
+      badge.textContent=done?'✓ Completed fundamentals':'◎ Currently exploring';
+    };
+    syncBadge(+num.value);
+    const update=(v)=>{
+      const clamped=Math.max(0,Math.min(100,Number(v)||0));
+      range.value=clamped;num.value=clamped;
+      set(o,p,clamped);syncBadge(clamped);markDirty(true);
+    };
+    range.oninput=()=>update(range.value);
+    num.oninput=()=>update(num.value);
+    row.append(range,num);wrap.append(row,badge);w.append(wrap);
+    return w;
+  }
+
+  const e=document.createElement(k==='area'?'textarea':'input');
+  if(k==='area')e.rows=3;else e.type=k==='num'?'number':'text';
+  if(k==='num'){e.min=0;e.max=100;}
+  e.className='in';e.value=get(o,p)??'';
+  e.oninput=()=>{set(o,p,k==='num'?+e.value:e.value);markDirty(true);};
+  w.append(e);
+
+  if(k==='img'){
+    const box=document.createElement('div');
+    box.className='mt-1.5 grid sm:grid-cols-[140px_1fr] gap-3 items-center border border-dashed border-edge rounded-xl p-3 bg-raised/40 transition';
+    const prev=document.createElement('div');
+    prev.className='aspect-[16/10] rounded-lg bg-ink border border-edge overflow-hidden grid place-items-center text-[11px] text-mist';
+    const renderPrev=(url)=>{
+      if(url){
+        prev.innerHTML=`<img src="${url}" alt="Preview" class="w-full h-full object-cover" onerror="this.parentElement.textContent='Invalid URL'">`;
+      }else{
+        prev.textContent='No image';
+      }
+    };
+    renderPrev(e.value);
+    e.addEventListener('input',()=>renderPrev(e.value));
+
+    const ctrl=document.createElement('div');ctrl.className='grid gap-2';
+    const f=document.createElement('input');f.type='file';f.accept='image/*';f.className='hidden';
+    const rowBtns=document.createElement('div');rowBtns.className='flex flex-wrap items-center gap-2';
+    const upBtn=document.createElement('button');upBtn.type='button';upBtn.className='btn2';upBtn.textContent='↑ Upload / Drop image';
+    upBtn.onclick=()=>f.click();
+    const clrBtn=document.createElement('button');clrBtn.type='button';clrBtn.className='btn-danger';clrBtn.textContent='Clear';
+    clrBtn.onclick=()=>{e.value='';set(o,p,'');renderPrev('');markDirty(true);};
+    rowBtns.append(upBtn,clrBtn);
+
+    const hint=document.createElement('span');hint.className='font-mono text-[11px] text-mist/80';
+    hint.textContent='Auto-converts PNG/JPG to optimized WebP (max 1600px).';
+
+    f.onchange=()=>uploadMediaFile(f.files[0],url=>{e.value=url;set(o,p,url);renderPrev(url);});
+    box.ondragover=ev=>{ev.preventDefault();box.classList.add('border-light','bg-electric/10');};
+    box.ondragleave=()=>box.classList.remove('border-light','bg-electric/10');
+    box.ondrop=ev=>{
+      ev.preventDefault();box.classList.remove('border-light','bg-electric/10');
+      const file=ev.dataTransfer?.files?.[0];
+      if(file)uploadMediaFile(file,url=>{e.value=url;set(o,p,url);renderPrev(url);});
+    };
+
+    ctrl.append(f,rowBtns,hint);
+    box.append(prev,ctrl);
+    w.append(box);
+  }
+  return w;
+}
+
+function card(o,T,idx,total){
+  const c=document.createElement('div');
+  c.className='border border-edge bg-navy/90 rounded-2xl p-6 grid gap-5 md:grid-cols-2 shadow-lg';
+
+  if(!T.single){
+    const top=document.createElement('div');
+    top.className='md:col-span-2 flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-edge';
+    const badge=document.createElement('span');
+    badge.className='font-mono text-xs text-light';
+    badge.textContent=`#${String(idx+1).padStart(2,'0')}`;
+
+    const actions=document.createElement('div');
+    actions.className='flex items-center gap-2';
+
+    if(T.key==='journey'){
+      const d=document.createElement('label');
+      d.className='inline-flex items-center gap-2 font-mono text-xs text-mist mr-2 cursor-pointer select-none';
+      const cb=document.createElement('input');cb.type='checkbox';cb.checked=!!o.done;cb.className='accent-electric size-4 cursor-pointer';
+      cb.onchange=()=>{o.done=cb.checked;markDirty(true);};
+      d.append(cb,'Completed');
+      actions.append(d);
+    }
+
+    const up=document.createElement('button');up.type='button';up.className='btn2 !px-2.5 !py-1';up.textContent='↑';up.title='Move up';up.disabled=idx===0;
+    up.onclick=()=>{const arr=data[T.key];[arr[idx-1],arr[idx]]=[arr[idx],arr[idx-1]];markDirty(true);render();};
+
+    const dn=document.createElement('button');dn.type='button';dn.className='btn2 !px-2.5 !py-1';dn.textContent='↓';dn.title='Move down';dn.disabled=idx===total-1;
+    dn.onclick=()=>{const arr=data[T.key];[arr[idx+1],arr[idx]]=[arr[idx],arr[idx+1]];markDirty(true);render();};
+
+    const del=document.createElement('button');del.type='button';del.className='btn-danger';del.textContent='Delete';
+    del.onclick=()=>{if(confirm('Delete this item?')){data[T.key].splice(idx,1);markDirty(true);render();}};
+
+    actions.append(up,dn,del);
+    top.append(badge,actions);
+    c.append(top);
+  }
+
+  T.fields.forEach(f=>{
+    const w=input(o,f);
+    if(f[2]==='area'||f[2]==='img'||f[2]==='skill')w.classList.add('md:col-span-2');
+    c.append(w);
+  });
+  return c;
+}
+
+function security(b){
+  const c=document.createElement('div');
+  c.className='border border-edge bg-navy/90 rounded-2xl p-6 md:p-8 grid gap-4 max-w-md shadow-lg';
+  c.innerHTML=`<p class="font-mono text-xs text-mist leading-relaxed">Choose a long, unique password (12+ characters) and store it in a password manager.</p>
+  <label class="lab">New password<input id="np" type="password" autocomplete="new-password" class="in"></label>
+  <label class="lab">Repeat new password<input id="np2" type="password" autocomplete="new-password" class="in"></label>
+  <button id="npb" type="button" class="btn justify-self-start mt-1">Update password</button>`;
+  b.append(c);
+  c.querySelector('#npb').onclick=async()=>{
+    const a=c.querySelector('#np').value;
+    if(a.length<12)return msg('Use at least 12 characters.',1);
+    if(a!==c.querySelector('#np2').value)return msg('The two passwords do not match.',1);
+    const {error}=await sb.auth.updateUser({password:a});
+    if(error)msg(error.message,1);
+    else{c.querySelector('#np').value='';c.querySelector('#np2').value='';msg('Password updated. Use it the next time you sign in.');}
+  };
+}
+
+function render(){
+  const T=TABS[tab],b=$('#body');
+  b.innerHTML='';
+  $('#ttl').textContent=T.label;
+  $('#save').style.display=T.custom?'none':'';
+  $('#tabs').innerHTML=Object.entries(TABS).map(([k,v])=>{
+    const count=v.key&&Array.isArray(data?.[v.key])?`<span class="badge font-mono text-[11px] px-2 py-0.5 rounded-full border border-edge text-mist">${data[v.key].length}</span>`:'';
+    return `<button class="tab ${k===tab?'on':''}" data-t="${k}"><span>${v.label}</span>${count}</button>`;
+  }).join('');
+
+  if(T.custom)return security(b);
+  if(T.single)return b.append(card(data,T,0,1));
+
+  const arr=data[T.key]||[];
+  if(!arr.length){
+    const empty=document.createElement('p');
+    empty.className='font-mono text-xs text-mist border border-dashed border-edge rounded-2xl p-8 text-center';
+    empty.textContent=`No ${T.label.toLowerCase()} yet. Click “+ Add ${T.label.slice(0,-1)}” below.`;
+    b.append(empty);
+  }
+  arr.forEach((o,i)=>b.append(card(o,T,i,arr.length)));
+
+  const a=document.createElement('button');
+  a.type='button';
+  a.className='btn2 border-dashed justify-self-start !px-5 !py-2.5';
+  a.textContent=`+ Add ${T.label.replace(/s$/,'')}`;
+  a.onclick=()=>{
+    data[T.key].push(structuredClone(T.blank));
+    markDirty(true);
+    render();
+    window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+  };
+  b.append(a);
+}
+
+$('#tabs').onclick=e=>{
+  const t=e.target.closest('[data-t]');
+  if(t){tab=t.dataset.t;render();}
+};
+
+async function saveAll(){
+  if(TABS[tab]?.custom)return;
+  $('#save').disabled=true;
+  $('#save').textContent='Saving…';
+  const {error}=await sb.from('content').upsert({id:1,data});
+  $('#save').disabled=false;
+  $('#save').textContent='Save changes';
+  if(error){
+    msg(error.message,1);
+  }else{
+    savedSnapshot=JSON.stringify(data);
+    markDirty(false);
+    msg('Saved & published to live site.');
+    try{BC?.postMessage({type:'updated'})}catch(e){}
+  }
+}
+
+$('#save').onclick=saveAll;
+$('#discard').onclick=()=>{
+  if(confirm('Discard all unsaved changes?')){
+    data=JSON.parse(savedSnapshot);
+    markDirty(false);
+    render();
+    msg('Changes discarded.');
+  }
+};
+
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){
+    e.preventDefault();
+    if($('#app').style.display!=='none'&&!TABS[tab]?.custom)saveAll();
+  }
+});
+
+async function start(){
+  const {data:r}=await sb.from('content').select('data').eq('id',1).maybeSingle();
+  data=r?.data?{...structuredClone(DEFAULT),...r.data}:structuredClone(DEFAULT);
+  savedSnapshot=JSON.stringify(data);
+  markDirty(false);
+  $('#login').style.display='none';
+  $('#app').style.display='grid';
+  render();
+}
+
+$('#toggle-pw').onclick=()=>{
+  const pw=$('#pw');
+  const show=pw.type==='password';
+  pw.type=show?'text':'password';
+  $('#toggle-pw').textContent=show?'hide':'show';
+};
+
+$('#lf').onsubmit=async e=>{
+  e.preventDefault();
+  $('#err').textContent='';
+  const btn=$('#login-btn');
+  btn.disabled=true;btn.textContent='Signing in…';
+  const {error}=await sb.auth.signInWithPassword({email:$('#em').value,password:$('#pw').value});
+  btn.disabled=false;btn.textContent='Sign in';
+  if(error)$('#err').textContent='Wrong email or password.';
+  else start();
+};
+
+const signOut=async()=>{await sb.auth.signOut();location.reload();};
+$('#out').onclick=signOut;
+$('#out-mob').onclick=signOut;
+
+(async()=>{
+  const s=$('#st');
+  if(SUPABASE_URL.includes('YOUR')||SUPABASE_KEY.includes('YOUR')){
+    s.textContent='⚠ config.js is not filled in yet.';
+    return;
+  }
+  const {error}=await sb.from('content').select('id').limit(1);
+  s.textContent=error?'⚠ '+error.message+' — did you run the setup SQL?':'✓ Connected to Supabase';
+  s.className='font-mono text-xs '+(error?'text-red-400':'text-light');
+})();
+
+$('#fp').onclick=async()=>{
+  const e=$('#em').value;
+  if(!e){
+    $('#err').className='font-mono text-xs text-red-400';
+    return $('#err').textContent='Type your email above first.';
+  }
+  const {error}=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
+  $('#err').className='font-mono text-xs '+(error?'text-red-400':'text-light');
+  $('#err').textContent=error?error.message:'If that email has an account, a reset link was sent.';
+};
+
 sb.auth.onAuthStateChange(ev=>{if(ev==='PASSWORD_RECOVERY')start().then(()=>{tab='security';render()})});
 sb.auth.getSession().then(({data:{session}})=>{if(session)start()});
 </script>
